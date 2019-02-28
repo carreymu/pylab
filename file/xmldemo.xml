@@ -1,0 +1,49 @@
+<rss  xmlns:dc="http://purl.org/dc/elements/1.1/" version="2.0">
+    <channel>
+        <title>Planet Python</title>
+        <link>http://planetpython.org/</link>
+        <language>en</language>
+        <description>Planet Python - http://planetpython.org/</description>
+        <item>
+            <title>Codementor: Machine Learning with Python: Easy and robust method to fit nonlinear data</title>
+            <guid>
+https://www.codementor.io/tirthajyotisarkar/machine-learning-with-python-easy-and-robust-method-to-fit-nonlinear-data-hfgyw7i4f
+</guid>
+            <link>
+https://www.codementor.io/tirthajyotisarkar/machine-learning-with-python-easy-and-robust-method-to-fit-nonlinear-data-hfgyw7i4f
+</link>
+            <description>
+Easy and robust methodology for nonlinear data modeling using Python libraries, pipeline features, and regularization.
+</description>
+            <pubDate>Thu, 08 Mar 2018 23:51:31 +0000</pubDate>
+        </item>
+        <item>
+            <title>
+Codementor: 8 ways to perform simple linear regression and measure their speed using Python
+</title>
+            <guid>
+https://www.codementor.io/tirthajyotisarkar/8-ways-to-perform-simple-linear-regression-and-measure-their-speed-using-python-hfgvs927x
+</guid>
+            <link>
+https://www.codementor.io/tirthajyotisarkar/8-ways-to-perform-simple-linear-regression-and-measure-their-speed-using-python-hfgvs927x
+</link>
+            <description>
+We discuss 8 ways to perform simple linear regression in Python ecosystem. We gloss over their pros and cons, and show their relative computational complexity measure.
+</description>
+            <pubDate>Thu, 08 Mar 2018 23:43:00 +0000</pubDate>
+        </item>
+        <item>
+            <title>
+Python Engineering at Microsoft: Python in Visual Studio Code – Feb 2018 Release
+</title>
+            <guid>
+https://blogs.msdn.microsoft.com/pythonengineering/2018/03/08/python-in-visual-studio-code-feb-2018-release/
+</guid>
+            <link>
+https://blogs.msdn.microsoft.com/pythonengineering/2018/03/08/python-in-visual-studio-code-feb-2018-release/
+</link>
+            <description>...</description>
+            <pubDate>Thu, 08 Mar 2018 19:13:03 +0000</pubDate>
+        </item>
+    </channel>
+</rss>
