@@ -8,6 +8,12 @@ if __name__ == "__main__":
     #自定义分组
     a = 2
     lstt=[2, 8, 11, 25, 43, 6, 9, -1, 29, 51, 66, 62, -2, -10]
+
+    first, *mid, last = lstt
+    print('first is {}, middle is {},last is {}'.format(first, mid, last))
+    _, *lasts = lstt
+    print('lasts is {}'.format(lasts))
+
     aa = [x for x in lstt if a == x]
     print(aa)
     def gb(num):
@@ -105,6 +111,8 @@ if __name__ == "__main__":
               "callphonenumber": "95595", "cityname": "西安", "duration": 150, "maxcalltime": "2017-08-06T22:53:39",
               "mincalltime": "2017-08-06T22:53:39", "phonenumber": "15339165005"}]
 
+    *_, ljson = jsons
+    print('last duration is :{}'.format(ljson['duration']))
     jsons.sort(key=itemgetter('callphonenumber'))
     lstg = groupby(jsons, itemgetter('callphonenumber'))
 
