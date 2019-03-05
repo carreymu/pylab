@@ -91,11 +91,11 @@ if __name__ == "__main__":
     else:
         print('no')
 
-    str = "www.runoob.com"
-    print(str.upper().find("RUN"))  # 把所有字符中的小写字母转换成大写字母
-    print(str.lower())  # 把所有字符中的大写字母转换成小写字母
-    print(str.capitalize())  # 把第一个字母转化为大写字母，其余小写
-    print(str.title())  # 把每个单词的第一个字母转化为大写，其余小写
+    strs = "www.runoob.com"
+    print(strs.upper().find("RUN"))  # 把所有字符中的小写字母转换成大写字母
+    print(strs.lower())  # 把所有字符中的大写字母转换成小写字母
+    print(strs.capitalize())  # 把第一个字母转化为大写字母，其余小写
+    print(strs.title())  # 把每个单词的第一个字母转化为大写，其余小写
 
     print("============second loop to String============")
     string2 = "Test String leading space to be added"
@@ -111,3 +111,10 @@ if __name__ == "__main__":
     print('这个是用 |连接起来的'.find('严重逾期| 已经逾期|逾期已超'))
 
     print('这个是用 |连接起来的严重逾期| 已经逾期|逾期已超'.find('严重逾期| 已经逾期|逾期已超'))
+
+    #{"Phrase":"finish","Remark":"已上传","Status":100}
+    str_demo = {"Phrase":"finish","Remark":"已上传","Statuss":100}
+    if str(str_demo) != '[]':
+        print(str_demo.get('Status',-1))
+    else:
+        print('yes')
