@@ -13,6 +13,30 @@ if __name__ == "__main__":
     print('first is {}, middle is {},last is {}'.format(first, mid, last))
     _, *lasts = lstt
     print('lasts is {}'.format(lasts))
+    var_unionpay = ['mon_12_var1',
+                    'tfr_in_accts_cnt_is180d',
+                    'trans_at_ttl_suc_out_6monmax',
+                    'recentintervald_trans',
+                    'is_taoxian_mct_freq_6m',
+                    'in_avg',
+                    'withdraw_amt_ratio',
+                    'out_0_6_ratio',
+                    'out_max_ratio',
+                    ]
+    var_unionpay_bins = {'mon_12_var1': [-float('inf'), 3, 6, 11, float('inf')],
+                         'tfr_in_accts_cnt_is180d': [-float('inf'), 1, float('inf')],
+                         'trans_at_ttl_suc_out_6monmax': [-float('inf'), 359.79, 2290.198, float('inf')],
+                         'recentintervald_trans': [-float('inf'), 12, 15.5, 32, float('inf')],
+                         'is_taoxian_mct_freq_6m': [-float('inf'), 5.5, float('inf')],
+                         'in_avg': [-float('inf'), 1.5499845, 1691.882989, 2981.479322, float('inf')],
+                         'withdraw_amt_ratio': [-float('inf'), 0.365306046, float('inf')],
+                         'out_0_6_ratio': [-float('inf'), 0.025300051, 0.133928407, float('inf')],
+                         'out_max_ratio': [-float('inf'), 0.349669115, 0.814364906, float('inf')]
+                         }
+    for i in var_unionpay:
+        i_bins = var_unionpay_bins.get(i)
+        print(i_bins)
+
 
     aa = [x for x in lstt if a == x]
     print(aa)

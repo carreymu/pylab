@@ -10,6 +10,19 @@ def adder(ad1,ad2):
     return ad1+ad2
 
 if __name__ == '__main__':
+    print("============dict to df============")
+    result = {
+        "upa_score_interval_day": 1,
+        "upa_trans_at_ttl_suc_in_is180d": 2,
+        "upa_trans_at_ttl_suc_in_6monmax": 3,
+    }
+    print(pd.cut(np.array([0.2,1.4,2.5,6.2,9.7,2.1]),3,retbins=True))
+    print(pd.cut(np.array([0.2, 1.4, 2.5, 6.2, 9.7, 2.1]), [1, 2, 3], retbins=True))
+    # pd_fund_userinfo1 = pd.DataFrame.from_dict(result, orient='index')
+    # pd_fund_userinfo1.reset_index(level=0, inplace=True)
+    pd_fund_userinfo1 = pd.DataFrame(result, index=[0])
+    print(pd_fund_userinfo1)
+
     strt = """
     [
         {
@@ -875,9 +888,9 @@ if __name__ == '__main__':
     print(df)
     df.columns
     # df.loc[df['max_speed1'] == 4, 'pp'] = 'home_1'
-    df.columns = df.columns.str.strip().str.upper()
-    df.columns = ['c1', 'c2', 'c3', 'c4', 'c5', 'c6', 'c7', 'c8', 'c9', 'c10', 'c11', 'c12', 'c13', 'c14', 'c15']
-    print(df)
+    # df.columns = df.columns.str.strip().str.upper()
+    # df.columns = ['c1', 'c2', 'c3', 'c4', 'c5', 'c6', 'c7', 'c8', 'c9', 'c10', 'c11', 'c12', 'c13', 'c14', 'c15']
+    # print(df)
 
     print("============ df_result ============")
     json_dict_list = """

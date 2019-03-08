@@ -7,7 +7,9 @@ class Info:
         self.n = n
 
 if __name__ == "__main__":
-
+    (a,b,c) = ("-1.0",)*3
+    # wrong (a, b, c) = ("-1.0") * 3
+    print(a,b,c)
     print(len('少年宪法对'))
     print("============String split============")
     line = 'asdf fjdk; afed, fjek,asdf, | foo'
