@@ -37,6 +37,7 @@ if __name__ == '__main__':
       "userId": "userId",
       "userName": "userName"
     }
+    print('username' in test[0])
     sJson = json.loads(json.dumps(testSingle, ensure_ascii=False))
     print(sJson)
     for item in sJson:

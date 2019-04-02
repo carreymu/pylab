@@ -5,6 +5,10 @@ from _decimal import Decimal
 from fractions import Fraction
 if __name__ == '__main__':
     from scipy import stats
+    b = 2
+    if 5 > b > 1:
+       print('sss')
+
     print(float(1/3))
     print(float(format(1/3, '0.2f')))
     print(stats.hmean([1, 9, 5, 6, 6, 7]))

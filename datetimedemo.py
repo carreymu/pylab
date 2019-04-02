@@ -96,3 +96,9 @@ if __name__ == "__main__":
     print("============get  days between unixtimes============")
     udays = datediff_timestamp(your_timestamp)
     print(udays)
+
+    reg = "2016-01-24 21:15:47"
+    tm = datetime.fromtimestamp(reg / (10 ** 9)) if isinstance(reg, int) else datetime.strptime(reg,"%Y-%m-%d %H:%M:%S")
+    dt = datetime.now()
+    age = (dt - tm).days
+    print(age)
