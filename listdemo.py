@@ -50,90 +50,25 @@ if __name__ == "__main__":
 
     print(sorted(lstt))
     print(sorted(lstt, reverse=False))
-    print(sorted(lstt,reverse=True))
+    print(sorted(lstt, reverse=True))
     print('customer group', [(k, list(g)) for k, g in groupby(sorted(lstt), key=gb)])
 
-    jsons = [{"callintimes": 0, "callmonth": "2017-07", "calloutlimit5s": 0, "callouttime0_6": 0, "callouttimes": 2,
-              "callphonenumber": "95511", "cityname": "西安", "duration": 354, "maxcalltime": "2017-07-08T16:24:02",
-              "mincalltime": "2017-07-03T20:07:39", "phonenumber": "15339165005"},
-             {"callintimes": 1, "callmonth": "2017-03", "calloutlimit5s": 0, "callouttime0_6": 0, "callouttimes": 0,
-              "callphonenumber": "95522", "cityname": "西安", "duration": 84, "maxcalltime": "2017-03-14T18:20:10",
-              "mincalltime": "2017-03-14T18:20:10", "phonenumber": "15339165005"},
-             {"callintimes": 0, "callmonth": "2016-12", "calloutlimit5s": 0, "callouttime0_6": 0, "callouttimes": 1,
-              "callphonenumber": "95527", "cityname": "西安", "duration": 163, "maxcalltime": "2016-12-14T11:25:49",
-              "mincalltime": "2016-12-14T11:25:49", "phonenumber": "15339165005"},
-             {"callintimes": 0, "callmonth": "2015-11", "calloutlimit5s": 0, "callouttime0_6": 0, "callouttimes": 2,
-              "callphonenumber": "95528", "cityname": "西安", "duration": 164, "maxcalltime": "2015-11-05T16:32:00",
-              "mincalltime": "2015-11-04T12:14:00", "phonenumber": "15339165005"},
-             {"callintimes": 2, "callmonth": "2015-11", "calloutlimit5s": 0, "callouttime0_6": 0, "callouttimes": 0,
-              "callphonenumber": "95533", "cityname": "西安", "duration": 166, "maxcalltime": "2015-11-15T14:01:00",
-              "mincalltime": "2015-11-15T10:28:00", "phonenumber": "15339165005"},
-             {"callintimes": 1, "callmonth": "2015-12", "calloutlimit5s": 0, "callouttime0_6": 0, "callouttimes": 0,
-              "callphonenumber": "95533", "cityname": "西安", "duration": 40, "maxcalltime": "2015-12-14T10:02:00",
-              "mincalltime": "2015-12-14T10:02:00", "phonenumber": "15339165005"},
-             {"callintimes": 0, "callmonth": "2016-11", "calloutlimit5s": 0, "callouttime0_6": 0, "callouttimes": 1,
-              "callphonenumber": "95533", "cityname": "西安", "duration": 101, "maxcalltime": "2016-11-16T11:37:14",
-              "mincalltime": "2016-11-16T11:37:14", "phonenumber": "15339165005"},
-             {"callintimes": 1, "callmonth": "2016-12", "calloutlimit5s": 0, "callouttime0_6": 0, "callouttimes": 0,
-              "callphonenumber": "95533", "cityname": "西安", "duration": 81, "maxcalltime": "2016-12-13T10:59:35",
-              "mincalltime": "2016-12-13T10:59:35", "phonenumber": "15339165005"},
-             {"callintimes": 2, "callmonth": "2017-01", "calloutlimit5s": 0, "callouttime0_6": 0, "callouttimes": 1,
-              "callphonenumber": "95533", "cityname": "西安", "duration": 397, "maxcalltime": "2017-01-21T14:15:42",
-              "mincalltime": "2017-01-11T11:31:28", "phonenumber": "15339165005"},
-             {"callintimes": 2, "callmonth": "2017-03", "calloutlimit5s": 0, "callouttime0_6": 0, "callouttimes": 1,
-              "callphonenumber": "95533", "cityname": "西安", "duration": 323, "maxcalltime": "2017-03-11T16:50:48",
-              "mincalltime": "2017-03-02T15:26:49", "phonenumber": "15339165005"},
-             {"callintimes": 1, "callmonth": "2017-04", "calloutlimit5s": 0, "callouttime0_6": 0, "callouttimes": 0,
-              "callphonenumber": "95533", "cityname": "西安", "duration": 117, "maxcalltime": "2017-04-12T09:41:48",
-              "mincalltime": "2017-04-12T09:41:48", "phonenumber": "15339165005"},
-             {"callintimes": 2, "callmonth": "2017-07", "calloutlimit5s": 0, "callouttime0_6": 0, "callouttimes": 3,
-              "callphonenumber": "95533", "cityname": "西安", "duration": 435, "maxcalltime": "2017-07-12T11:41:40",
-              "mincalltime": "2017-07-10T10:32:39", "phonenumber": "15339165005"},
-             {"callintimes": 0, "callmonth": "2016-12", "calloutlimit5s": 0, "callouttime0_6": 0, "callouttimes": 1,
-              "callphonenumber": "95561", "cityname": "西安", "duration": 7, "maxcalltime": "2016-12-31T15:23:56",
-              "mincalltime": "2016-12-31T15:23:56", "phonenumber": "15339165005"},
-             {"callintimes": 0, "callmonth": "2015-10", "calloutlimit5s": 0, "callouttime0_6": 0, "callouttimes": 1,
-              "callphonenumber": "95588", "cityname": "西安", "duration": 123, "maxcalltime": "2015-10-25T13:12:00",
-              "mincalltime": "2015-10-25T13:12:00", "phonenumber": "15339165005"},
-             {"callintimes": 0, "callmonth": "2016-12", "calloutlimit5s": 0, "callouttime0_6": 0, "callouttimes": 1,
-              "callphonenumber": "95588", "cityname": "西安", "duration": 273, "maxcalltime": "2016-12-02T14:01:04",
-              "mincalltime": "2016-12-02T14:01:04", "phonenumber": "15339165005"},
-             {"callintimes": 0, "callmonth": "2017-03", "calloutlimit5s": 0, "callouttime0_6": 0, "callouttimes": 7,
-              "callphonenumber": "95588", "cityname": "西安", "duration": 933, "maxcalltime": "2017-03-19T09:50:56",
-              "mincalltime": "2017-03-03T21:15:32", "phonenumber": "15339165005"},
-             {"callintimes": 0, "callmonth": "2017-04", "calloutlimit5s": 0, "callouttime0_6": 0, "callouttimes": 5,
-              "callphonenumber": "95588", "cityname": "西安", "duration": 704, "maxcalltime": "2017-04-20T15:42:14",
-              "mincalltime": "2017-04-06T20:35:00", "phonenumber": "15339165005"},
-             {"callintimes": 0, "callmonth": "2017-05", "calloutlimit5s": 0, "callouttime0_6": 0, "callouttimes": 1,
-              "callphonenumber": "95588", "cityname": "西安", "duration": 142, "maxcalltime": "2017-05-07T08:45:24",
-              "mincalltime": "2017-05-07T08:45:24", "phonenumber": "15339165005"},
-             {"callintimes": 0, "callmonth": "2017-06", "calloutlimit5s": 0, "callouttime0_6": 0, "callouttimes": 3,
-              "callphonenumber": "95588", "cityname": "西安", "duration": 679, "maxcalltime": "2017-06-06T19:39:43",
-              "mincalltime": "2017-06-04T17:24:45", "phonenumber": "15339165005"},
-             {"callintimes": 0, "callmonth": "2017-07", "calloutlimit5s": 0, "callouttime0_6": 0, "callouttimes": 3,
-              "callphonenumber": "95588", "cityname": "西安", "duration": 881, "maxcalltime": "2017-07-14T18:23:46",
-              "mincalltime": "2017-07-08T16:49:49", "phonenumber": "15339165005"},
-             {"callintimes": 0, "callmonth": "2015-10", "calloutlimit5s": 0, "callouttime0_6": 0, "callouttimes": 2,
-              "callphonenumber": "95595", "cityname": "西安", "duration": 273, "maxcalltime": "2015-10-25T18:00:00",
-              "mincalltime": "2015-10-25T17:57:00", "phonenumber": "15339165005"},
-             {"callintimes": 1, "callmonth": "2016-12", "calloutlimit5s": 0, "callouttime0_6": 0, "callouttimes": 0,
-              "callphonenumber": "95595", "cityname": "西安", "duration": 19, "maxcalltime": "2016-12-04T11:13:29",
-              "mincalltime": "2016-12-04T11:13:29", "phonenumber": "15339165005"},
-             {"callintimes": 0, "callmonth": "2017-03", "calloutlimit5s": 0, "callouttime0_6": 0, "callouttimes": 1,
-              "callphonenumber": "95595", "cityname": "西安", "duration": 168, "maxcalltime": "2017-03-12T09:42:16",
-              "mincalltime": "2017-03-12T09:42:16", "phonenumber": "15339165005"},
-             {"callintimes": 4, "callmonth": "2017-05", "calloutlimit5s": 0, "callouttime0_6": 0, "callouttimes": 0,
-              "callphonenumber": "95595", "cityname": "西安", "duration": 225, "maxcalltime": "2017-05-24T14:35:27",
-              "mincalltime": "2017-05-17T09:19:27", "phonenumber": "15339165005"},
-             {"callintimes": 2, "callmonth": "2017-06", "calloutlimit5s": 0, "callouttime0_6": 0, "callouttimes": 0,
-              "callphonenumber": "95595", "cityname": "西安", "duration": 91, "maxcalltime": "2017-06-02T17:31:41",
-              "mincalltime": "2017-06-01T15:28:41", "phonenumber": "15339165005"},
-             {"callintimes": 4, "callmonth": "2017-07", "calloutlimit5s": 0, "callouttime0_6": 0, "callouttimes": 0,
-              "callphonenumber": "95595", "cityname": "西安", "duration": 464, "maxcalltime": "2017-07-17T12:49:14",
-              "mincalltime": "2017-07-17T10:13:58", "phonenumber": "15339165005"},
-             {"callintimes": 0, "callmonth": "2017-08", "calloutlimit5s": 0, "callouttime0_6": 0, "callouttimes": 1,
-              "callphonenumber": "95595", "cityname": "西安", "duration": 150, "maxcalltime": "2017-08-06T22:53:39",
-              "mincalltime": "2017-08-06T22:53:39", "phonenumber": "15339165005"}]
+    jsons = [{"callintimes": 2, "callmonth": "2015-11", "callouttimes": 0,
+              "callphonenumber": "95533", "duration": 166, "maxcalltime": "2015-11-15T14:01:00",
+              "mincalltime": "2015-11-15T10:28:00", "phonenumber": "11715158282"},
+             {"callintimes": 1, "callmonth": "2015-12", "callouttimes": 0,
+              "callphonenumber": "95533", "duration": 40, "maxcalltime": "2015-12-14T10:02:00",
+              "mincalltime": "2015-12-14T10:02:00", "phonenumber": "11715158282"},
+             {"callintimes": 0, "callmonth": "2016-11", "callouttimes": 1,
+              "callphonenumber": "95533", "duration": 101, "maxcalltime": "2016-11-16T11:37:14",
+              "mincalltime": "2016-11-16T11:37:14", "phonenumber": "11715158282"},
+             {"callintimes": 1, "callmonth": "2016-12", "callouttimes": 0,
+              "callphonenumber": "95533", "duration": 81, "maxcalltime": "2016-12-13T10:59:35",
+              "mincalltime": "2016-12-13T10:59:35", "phonenumber": "11715158282"},
+             {"callintimes": 2, "callmonth": "2017-01", "callouttimes": 1,
+              "callphonenumber": "95533", "duration": 397, "maxcalltime": "2017-01-21T14:15:42",
+              "mincalltime": "2017-01-11T11:31:28", "phonenumber": "11715158282"}
+             ]
 
     *_, ljson = jsons
     print('last duration is :{}'.format(ljson['duration']))
@@ -148,8 +83,37 @@ if __name__ == "__main__":
     print('sum_list---')
     print(sum_list)
 
-    jg_1 = [{key:list(group)} for key,group in lstg]
-    # print(jg_1)
+    # jsons['mincall'] = map(lambda x: x['mincalltime'].replace('T',' '), jsons)
+    ttt = map(lambda x: x['mincalltime'].replace('T', ' '), jsons)
+    for x in ttt:
+        print(x)
+
+    print('list_t---')
+    def removeT(x):
+        x['mincalltime'] = x['mincalltime'][0:10]
+        return x
+    list_t = [removeT(x) for x in jsons]
+    print(list_t)
+    
+    # print(map(lambda x: x['mincalltime'].replace('T',' '), jsons))
+    # jsons['maxcall'] = jsons.map(lambda x: x['maxcalltime'].sub)
+    # call2 = groupby(call_month, itemgetter('callmonth'))
+    # sss = [{key: len(list(group))} for key, group in call2]
+    # print(sss)
+
+    jg_1 = [{key: list(group)} for key, group in lstg]
+    print('----jg1')
+    print(jg_1)
+    print('----')
+
+    lstg2 = groupby(jsons, itemgetter('callmonth'))
+    jg_2 = dict([(key, len(list(group))) for key, group in lstg2])
+    # jg_2 = [{key: len(list(group))} for key, group in lstg2]
+    print('----jg2')
+    print(jg_2)
+    jg = {key: value for key, value in jg_2.items() if value > 2}
+    print('the_dict filter result:', len(jg.keys()))
+    print('----')
     # {key for key in the_dict.keys() if key in dict_names}
 
     # for key, group in jg_1:
@@ -166,9 +130,6 @@ if __name__ == "__main__":
         print(f'key:{key},max:{maxcalltime},min:{mincalltime}')
         # maxcalltime = x.values()
         # x.keys()
-
-    jg_2 = dict([(key, list(group)) for key, group in lstg])
-    print(jg_2)
 
 
     print("============aggregation before filter items============")
@@ -197,58 +158,40 @@ if __name__ == "__main__":
     jArr = [
             {
                 "final_score": 1047,
-                "risk_type": "suspiciousLoan_reject",
-                "policy_set_name": "借款事件_网站",
                 "inserttime": 1515666222778,
                 "final_decision": "Reject",
-                "policy_name": "借款事件_网站",
-                "seq_id": "1486360132843686F0B5679C93618668",
                 "updatetime": "2018-06-06 20:23:48",
                 "upserttime": "2018-06-06T20:23:48",
                 "maxcalltime": "2015-11-15T14:01:00",
                 "mincalltime": "2015-11-15T10:28:00",
-                "userid": 50188157,
-                "seqid": 1,
-                "taskid": None
+                "userid": 50188157
             },
             {
                 "final_score": 1047,
-                "risk_type": "suspiciousLoan_reject",
-                "policy_set_name": "借款事件_网站",
                 "inserttime": 1513082115530,
                 "final_decision": "Review",
-                "policy_name": "借款事件_网站",
-                "seq_id": "1486360132843686F0B5679C93618668",
                 "updatetime": "2018-06-01 20:23:48",
                 "upserttime": "2018-06-01T20:23:48",
                 "maxcalltime": "2015-11-15T14:01:00",
                 "mincalltime": "2015-11-15T10:28:00",
-                "userid": 50188157,
-                "seqid": 1,
-                "taskid": None
+                "userid": 50188157
             },
             {
                 "final_score": 1047,
-                "risk_type": "suspiciousLoan_reject",
-                "policy_set_name": "借款事件_网站",
                 "inserttime": 1513082115530,
                 "final_decision": "Review",
-                "policy_name": "借款事件_网站",
-                "seq_id": "1486360132843686F0B5679C93618668",
                 "updatetime": "2018-06-02 20:23:48",
                 "upserttime": "2018-06-02T20:23:48",
                 "maxcalltime": "2015-11-15T14:01:00",
                 "mincalltime": "2015-11-15T10:28:00",
-                "userid": 50188157,
-                "seqid": 1,
-                "taskid": None
+                "userid": 50188157
             }
         ]
     a = jArr[0]['final_decision'] if 'final_decision' in jArr[0].keys() else -1
     print(f'a is {a}')
-    fa1 = [x for x in jArr if x['final_decision']=='Reject']
+    fa1 = [x for x in jArr if x['final_decision'] == 'Reject']
     print(fa1)
-    fa2 = (x for x in jArr if x['final_decision']=='Reject')
+    fa2 = (x for x in jArr if x['final_decision'] == 'Reject')
     print(fa2)
     fa3 = [x['inserttime'] for x in jArr if datetime.strptime(x['updatetime'], '%Y-%m-%d %H:%M:%S') - datetime.strptime('2018-06-01', '%Y-%m-%d')>timedelta(hours=24)]
     print(fa3)

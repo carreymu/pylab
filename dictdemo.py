@@ -176,3 +176,28 @@ if __name__ == "__main__":
     print(d1)
     print(d)
 
+    print('===============dict in dict===============')
+    bank_list = [
+        {'bank': 'CLARK', 'amount': '200', 'amountused': '2'},
+        {'bank': '58TH', 'amount': '1000', 'amountused': '21'},
+        {'bank': 'CLARK', 'amount': '2000', 'amountused': '22'},
+        {'bank': 'RAVENSWOOD', 'amount': '2000', 'amountused': '22'},
+        {'bank': '58TH', 'amount': '200', 'amountused': '2'},
+    ]
+    bank_list.sort(key=itemgetter('bank'))
+    bank_gp = groupby(bank_list, key=itemgetter('bank'))
+
+    # print([(key,list(group)) for key,group in bank_gp])
+    bk_list = dict([(key, list(group)) for key, group in bank_gp])
+    print(bk_list)
+    for key in bk_list:
+        print(bk_list[key])
+    # for key, group in bk_list:
+    #     for g in group:
+    #         print(key, g)
+
+
+    # for bank, items in bank_gp:
+    #     print('---------err result:', bank)
+    #     for i in items:bank_gp
+    #         print(' ', i)

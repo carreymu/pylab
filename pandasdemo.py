@@ -1,10 +1,11 @@
+import re
 import json
 import os
 import pandas as pd
 import numpy as np
-from datetime import datetime, timedelta
-
-# import scipy
+import scipy
+from scipy import stats
+from datetime import timedelta
 
 def adder(ad1,ad2):
     return ad1+ad2
@@ -32,7 +33,7 @@ if __name__ == '__main__':
             "customer_number": null,
             "gjj_number": null,
             "begin_date": null,
-            "id_card": "342425****11220418",
+            "id_card": "312425****11220418",
             "real_name": "luopengfei",
             "base_number": null,
             "corporation_name": null,
@@ -65,7 +66,7 @@ if __name__ == '__main__':
             "customer_number": null,
             "gjj_number": null,
             "begin_date": null,
-            "id_card": "34242519921122041*",
+            "id_card": "31242519921122041*",
             "real_name": "*小明",
             "base_number": null,
             "corporation_name": null,
@@ -98,7 +99,7 @@ if __name__ == '__main__':
             "customer_number": null,
             "gjj_number": null,
             "begin_date": null,
-            "id_card": "34242519921122041*",
+            "id_card": "32242519921122041*",
             "real_name": "luo****fei",
             "base_number": null,
             "corporation_name": null,
@@ -163,6 +164,11 @@ if __name__ == '__main__':
     print("============filtered,sorted result============")
     df_sort = pd_fund_userinfo[["inserttime","updatetime","ppduserid","id_card"]].sort_values(by=["inserttime"], ascending=False)
     print(df_sort)
+    print('===')
+    df_fuserid = df_sort[(~df_sort['id_card'].str.contains('34|18'))]
+    df_fuserid = df_fuserid[df_fuserid['id_card'].str.contains('32')]
+    print(df_fuserid)
+    print('===')
     df_sort1 = pd_fund_userinfo[["inserttime", "updatetime", "ppduserid", "id_card"]].sort_values(by="updatetime")#,ascending=1
     print(df_sort1)
     df_sort2 = pd_fund_userinfo[["inserttime","updatetime","ppduserid","id_card"]].sort_values(by=["inserttime",'updatetime'], ascending=[False,False])
@@ -246,148 +252,110 @@ if __name__ == '__main__':
     phoneinfo="""
     [
         {
-            "calladdressid": 1,
             "callphonenumber": "02151865695",
             "calltime": 1449029556000,
             "calltypeid": 1,
             "creationdate": 1524473524000,
             "originalcalladdress": "上海",
-            "phonenumber": "18815158282",
-            "roamaddressid": 0,
-            "roamtypeid": 0,
+            "phonenumber": "11715158282",
             "talktime": 6,
             "updatetime": 1524473524000,
-            "uploaduserid": 156901,
-            "userid": 322366
+            "userid": 9528
         },
         {
-            "calladdressid": 1,
             "callphonenumber": "02151865695",
             "calltime": 1448963913000,
             "calltypeid": 0,
             "creationdate": 1524473524000,
             "originalcalladdress": "上海",
-            "phonenumber": "18815158282",
-            "roamaddressid": 0,
-            "roamtypeid": 0,
+            "phonenumber": "11715158282",
             "talktime": 144,
             "updatetime": 1524473524000,
-            "uploaduserid": 156901,
-            "userid": 322366
+            "userid": 9528
         },
         {
-            "calladdressid": 1,
             "callphonenumber": "18221927813",
             "calltime": 1449030375000,
             "calltypeid": 0,
             "creationdate": 1524473524000,
             "originalcalladdress": "上海",
-            "phonenumber": "18815158282",
-            "roamaddressid": 0,
-            "roamtypeid": 0,
+            "phonenumber": "11715158282",
             "talktime": 122,
             "updatetime": 1524473524000,
-            "uploaduserid": 156901,
-            "userid": 322366
+            "userid": 9528
         },
         {
-            "calladdressid": 1,
             "callphonenumber": "18221927813",
             "calltime": 1448930350000,
             "calltypeid": 0,
             "creationdate": 1524473524000,
             "originalcalladdress": "上海",
-            "phonenumber": "18815158282",
-            "roamaddressid": 0,
-            "roamtypeid": 0,
-            "talktime": 0,
-            "updatetime": 1524473524000,
-            "uploaduserid": 156901,
-            "userid": 322366
+            "phonenumber": "11715158282",
+            "userid": 9528
         },
         {
-            "calladdressid": 1,
             "callphonenumber": "15921611089",
             "calltime": 1448969903000,
             "calltypeid": 1,
             "creationdate": 1524473524000,
             "originalcalladdress": "上海",
-            "phonenumber": "18815158282",
-            "roamaddressid": 0,
-            "roamtypeid": 0,
+            "phonenumber": "11715158282",
             "talktime": 21,
             "updatetime": 1524473524000,
-            "uploaduserid": 156901,
-            "userid": 322366
+            "userid": 9528
         },
         {
-            "calladdressid": 1,
             "callphonenumber": "02151865695",
             "calltime": 1448952632000,
             "calltypeid": 1,
             "creationdate": 1524473524000,
             "originalcalladdress": "上海",
-            "phonenumber": "18815158282",
-            "roamaddressid": 0,
-            "roamtypeid": 0,
+            "phonenumber": "11715158282",
             "talktime": 8,
             "updatetime": 1524473524000,
-            "uploaduserid": 156901,
-            "userid": 322366
+            "userid": 9528
         },
         {
-            "calladdressid": 1,
             "callphonenumber": "18221927813",
             "calltime": 1449037363000,
             "calltypeid": 0,
             "creationdate": 1524473524000,
             "originalcalladdress": "上海",
-            "phonenumber": "18815158282",
-            "roamaddressid": 0,
-            "roamtypeid": 0,
+            "phonenumber": "11715158282",
             "talktime": 17,
             "updatetime": 1524473524000,
-            "uploaduserid": 156901,
-            "userid": 322366
+            "userid": 9528
         },
         {
-            "calladdressid": 1,
             "callphonenumber": "02131658069",
             "calltime": 1449043926000,
             "calltypeid": 1,
             "creationdate": 1524473524000,
             "originalcalladdress": "上海",
-            "phonenumber": "18815158282",
-            "roamaddressid": 0,
-            "roamtypeid": 0,
+            "phonenumber": "11715158282",
             "talktime": 80,
             "updatetime": 1524473524000,
-            "uploaduserid": 156901,
-            "userid": 322366
+            "userid": 9528
         },
         {
-            "calladdressid": 1,
             "callphonenumber": "18221927813",
             "calltime": 1449048242000,
             "calltypeid": 0,
             "creationdate": 1524473524000,
             "originalcalladdress": "上海",
-            "phonenumber": "18815158282",
-            "roamaddressid": 0,
-            "roamtypeid": 0,
+            "phonenumber": "11715158282",
             "talktime": 27,
             "updatetime": 1524473524000,
-            "uploaduserid": 156901,
-            "userid": 322366
+            "userid": 9528
         }
     ]
     """
     df_phoneinfo=pd.DataFrame(json.loads(phoneinfo))
-    df_phoneinfo=df_phoneinfo[["callphonenumber","calltypeid","userid"]]
+    df_phoneinfo=df_phoneinfo[["callphonenumber","calltypeid","userid","talktime"]]
     print('----')
     print(df_phoneinfo)
     print('----groupby1')
-    dfg_g1_phoneinfo = df_phoneinfo.groupby(['callphonenumber']).agg({'callphonenumber':['count']})
+    dfg_g1_phoneinfo = df_phoneinfo.groupby(['callphonenumber']).agg({'callphonenumber':['count'], 'talktime':['sum']})
     print(dfg_g1_phoneinfo)
     print('----groupby2')
     dfg_g2_phoneinfo = df_phoneinfo.groupby(df_phoneinfo['callphonenumber']).agg({'callphonenumber': ['count']})
@@ -420,36 +388,42 @@ if __name__ == '__main__':
     # print(result_ax2)
     print("============drop_duplicates of dataframe============")
     infos = """
-    [
-    {
-        "AppVer":"4.5.0",
-        "Content":"李先生您好！我是平安易贷风控中心催员您是不方便接电话吗？本期贷款怎么还没处理呢？",
-        "InsertTime":"2017-03-04T20:13:44.320",
-        "IsActive":true,
-        "MessageTime":"2017-02-27T14:40:01.577",
-        "Number":"18607829307",
-        "NumberPeer":"13880356450",
-        "SourceType":1,
-        "Type":1,
-        "UpdateTime":"2017-03-04T20:13:44.320",
-        "UserId":35009453
+    [{
+        "Content":"Hello, Mr. Left！您【上海公积金】账户呵呵呵了？",
+        "InsertTime":"2010-03-04T20:13:44.320",
+        "MobileNumber":"13375205707",
+        "UserId":9527
     },
     {
-        "AppVer":"5.0",
-        "Content":"李先生您好！我是平安易贷风控中心催员，您是不方便接电话吗？本期贷款怎么还没处理呢？",
-        "InsertTime":"2017-05-12T19:48:57.754",
-        "IsActive":true,
-        "MessageTime":"2017-02-27T14:40:01.000",
-        "Number":"18607829307",
-        "NumberPeer":"13880356450",
-        "SourceType":1,
-        "Type":1,
-        "UpdateTime":"2017-05-12T19:48:57.754",
-        "UserId":35009453
-    }]
+        "Content":"Hello, Mr. Left！您【东北蛤蟆屯公 积 金】哈哈哈了",
+        "InsertTime":"2010-05-12T19:48:57.754",
+        "MobileNumber":"12375205707",
+        "UserId":9527
+    },
+    {
+        "Content":"Hello, Mr. Right！您【东北蛤蟆公积金中心】哈哈了",
+        "InsertTime":"2010-05-12T19:48:57.754",
+        "MobileNumber":"95222",
+        "UserId":9527
+    },
+    {
+        "Content":"Hello, Mr. left！您【公积金咋地了",
+        "InsertTime":"2010-05-12T19:48:57.754",
+        "MobileNumber":"95222",
+        "UserId":9527
+    }
+    ]
     """
     dff_dup = pd.DataFrame(json.loads(infos))
     dup = dff_dup.drop_duplicates(subset=['UserId', 'Content', 'InsertTime'], keep='first', inplace=False)
+    print(dup)
+    r = (
+        r"(【*公积金】|【*公 积 金】|【*公积金中心】)"
+    )
+    dup = dup[dup['Content'].str.contains(r)]
+    print(dup)
+    print('---')
+    dup = dup[dup['MobileNumber'].str[0:1:1] == '1']
     print(dup)
 
     print("============merge 2 dataframes============")
@@ -496,39 +470,18 @@ if __name__ == '__main__':
     usercontact ="""
         [
       {
-        "byuserid": 2222221,
-        "creationdate": "2017-09-22 14:15:50",
-        "flag_uctobcp": 12,
-        "flag_uctopvr": 12,
-        "orderid": 11,
         "phone": "15805239710",
         "realname": "万达江涛",
-        "relationshipid": 12,
-        "statusid": 0,
         "userid": 2307643
       },
       {
-        "byuserid": 2222221,
-        "creationdate": "2017-09-22 14:15:50",
-        "flag_uctobcp": 12,
-        "flag_uctopvr": 12,
-        "orderid": 11,
         "phone": "13813341527",
         "realname": "东升科技",
-        "relationshipid": 12,
-        "statusid": 0,
         "userid": 2307643
       },
       {
-        "byuserid": 6764848,
-        "creationdate": "2014-12-26 11:45:29",
-        "flag_uctobcp": 1,
-        "flag_uctopvr": 1,
-        "orderid": 11,
         "phone": "",
         "realname": "东大街",
-        "relationshipid": 7,
-        "statusid": 1,
         "userid": 2307643
       }
     ]
@@ -626,7 +579,6 @@ if __name__ == '__main__':
 
     print("============median of dataframe============")
 
-    # from scipy import stats
     # Create a DataFrame
     d = {
         'Name': ['Alisa', 'Bobby', 'Cathrine', 'Madonna', 'Rocky', 'Sebastian', 'Jaqluine',
@@ -639,10 +591,10 @@ if __name__ == '__main__':
         'score2': [92, 99, 69]}
     df = pd.DataFrame(d)
     print(df)
-    # print(scipy.stats.hmean(df.iloc[:,1:3],axis=0))
-    # print(scipy.stats.hmean(df.loc[:,'Score1']))
-    # print(scipy.stats.gmean(df.iloc[:,1:3],axis=0))
-    # print(scipy.stats.gmean(df.loc[:,'Score1']))
+    print(scipy.stats.hmean(df.iloc[:,1:3],axis=0))
+    print(scipy.stats.hmean(df.loc[:,'Score1']))
+    print(scipy.stats.gmean(df.iloc[:,1:3],axis=0))
+    print(scipy.stats.gmean(df.loc[:,'Score1']))
 
     print(df.std())
     print(df.std(axis=0))
@@ -796,7 +748,7 @@ if __name__ == '__main__':
     pd_res = pd.DataFrame.from_dict(dfResult, orient='columns')
     print(pd_res.ix[:, 'lastLendTillDay'])
 
-    print("============ long of dataframe ============")
+    print("============ long of dataframe============")
     d = {
         'countries': ['A', 'B', 'C'],
         'population_in_million': [100, 200, 120],
@@ -806,14 +758,6 @@ if __name__ == '__main__':
 
     df2 = pd.melt(df, id_vars=['countries'], var_name='metrics', value_name='values')
     print(df2)
-    print(df2.columns)
-    # columns = ['col_rep_test1', 'col_rep_test2','col_rep_test3']
-    # df2.reset_index(drop=True, inplace=True)
-    # if len(columns) == 0:
-    #     pd.Series([-1 for i in range(len(columns))], index=columns)
-    # output = df2.loc[0, columns]
-    # print(output)
-
     print("============ pivot of dataframe============")
     d = {
         'countries': ['A', 'B', 'C', 'A', 'B', 'C'],
@@ -868,7 +812,22 @@ if __name__ == '__main__':
     print(unstacked_df1)
 
     print("============ agg of dataframe============")
-    jsons =[{"callintimes":0,"callmonth":"2017-07","calloutlimit5s":0,"callouttime0_6":0,"callouttimes":2,"callphonenumber":"95511","cityname":"西安","duration":354,"maxcalltime":"2017-07-08T16:24:02","mincalltime":"2017-07-03T20:07:39","phonenumber":"15339165005"},{"callintimes":1,"callmonth":"2017-03","calloutlimit5s":0,"callouttime0_6":0,"callouttimes":0,"callphonenumber":"95522","cityname":"西安","duration":84,"maxcalltime":"2017-03-14T18:20:10","mincalltime":"2017-03-14T18:20:10","phonenumber":"15339165005"},{"callintimes":0,"callmonth":"2016-12","calloutlimit5s":0,"callouttime0_6":0,"callouttimes":1,"callphonenumber":"95527","cityname":"西安","duration":163,"maxcalltime":"2016-12-14T11:25:49","mincalltime":"2016-12-14T11:25:49","phonenumber":"15339165005"},{"callintimes":0,"callmonth":"2015-11","calloutlimit5s":0,"callouttime0_6":0,"callouttimes":2,"callphonenumber":"95528","cityname":"西安","duration":164,"maxcalltime":"2015-11-05T16:32:00","mincalltime":"2015-11-04T12:14:00","phonenumber":"15339165005"},{"callintimes":2,"callmonth":"2015-11","calloutlimit5s":0,"callouttime0_6":0,"callouttimes":0,"callphonenumber":"95533","cityname":"西安","duration":166,"maxcalltime":"2015-11-15T14:01:00","mincalltime":"2015-11-15T10:28:00","phonenumber":"15339165005"},{"callintimes":1,"callmonth":"2015-12","calloutlimit5s":0,"callouttime0_6":0,"callouttimes":0,"callphonenumber":"95533","cityname":"西安","duration":40,"maxcalltime":"2015-12-14T10:02:00","mincalltime":"2015-12-14T10:02:00","phonenumber":"15339165005"},{"callintimes":0,"callmonth":"2016-11","calloutlimit5s":0,"callouttime0_6":0,"callouttimes":1,"callphonenumber":"95533","cityname":"西安","duration":101,"maxcalltime":"2016-11-16T11:37:14","mincalltime":"2016-11-16T11:37:14","phonenumber":"15339165005"},{"callintimes":1,"callmonth":"2016-12","calloutlimit5s":0,"callouttime0_6":0,"callouttimes":0,"callphonenumber":"95533","cityname":"西安","duration":81,"maxcalltime":"2016-12-13T10:59:35","mincalltime":"2016-12-13T10:59:35","phonenumber":"15339165005"},{"callintimes":2,"callmonth":"2017-01","calloutlimit5s":0,"callouttime0_6":0,"callouttimes":1,"callphonenumber":"95533","cityname":"西安","duration":397,"maxcalltime":"2017-01-21T14:15:42","mincalltime":"2017-01-11T11:31:28","phonenumber":"15339165005"},{"callintimes":2,"callmonth":"2017-03","calloutlimit5s":0,"callouttime0_6":0,"callouttimes":1,"callphonenumber":"95533","cityname":"西安","duration":323,"maxcalltime":"2017-03-11T16:50:48","mincalltime":"2017-03-02T15:26:49","phonenumber":"15339165005"},{"callintimes":1,"callmonth":"2017-04","calloutlimit5s":0,"callouttime0_6":0,"callouttimes":0,"callphonenumber":"95533","cityname":"西安","duration":117,"maxcalltime":"2017-04-12T09:41:48","mincalltime":"2017-04-12T09:41:48","phonenumber":"15339165005"},{"callintimes":2,"callmonth":"2017-07","calloutlimit5s":0,"callouttime0_6":0,"callouttimes":3,"callphonenumber":"95533","cityname":"西安","duration":435,"maxcalltime":"2017-07-12T11:41:40","mincalltime":"2017-07-10T10:32:39","phonenumber":"15339165005"},{"callintimes":0,"callmonth":"2016-12","calloutlimit5s":0,"callouttime0_6":0,"callouttimes":1,"callphonenumber":"95561","cityname":"西安","duration":7,"maxcalltime":"2016-12-31T15:23:56","mincalltime":"2016-12-31T15:23:56","phonenumber":"15339165005"},{"callintimes":0,"callmonth":"2015-10","calloutlimit5s":0,"callouttime0_6":0,"callouttimes":1,"callphonenumber":"95588","cityname":"西安","duration":123,"maxcalltime":"2015-10-25T13:12:00","mincalltime":"2015-10-25T13:12:00","phonenumber":"15339165005"},{"callintimes":0,"callmonth":"2016-12","calloutlimit5s":0,"callouttime0_6":0,"callouttimes":1,"callphonenumber":"95588","cityname":"西安","duration":273,"maxcalltime":"2016-12-02T14:01:04","mincalltime":"2016-12-02T14:01:04","phonenumber":"15339165005"},{"callintimes":0,"callmonth":"2017-03","calloutlimit5s":0,"callouttime0_6":0,"callouttimes":7,"callphonenumber":"95588","cityname":"西安","duration":933,"maxcalltime":"2017-03-19T09:50:56","mincalltime":"2017-03-03T21:15:32","phonenumber":"15339165005"},{"callintimes":0,"callmonth":"2017-04","calloutlimit5s":0,"callouttime0_6":0,"callouttimes":5,"callphonenumber":"95588","cityname":"西安","duration":704,"maxcalltime":"2017-04-20T15:42:14","mincalltime":"2017-04-06T20:35:00","phonenumber":"15339165005"},{"callintimes":0,"callmonth":"2017-05","calloutlimit5s":0,"callouttime0_6":0,"callouttimes":1,"callphonenumber":"95588","cityname":"西安","duration":142,"maxcalltime":"2017-05-07T08:45:24","mincalltime":"2017-05-07T08:45:24","phonenumber":"15339165005"},{"callintimes":0,"callmonth":"2017-06","calloutlimit5s":0,"callouttime0_6":0,"callouttimes":3,"callphonenumber":"95588","cityname":"西安","duration":679,"maxcalltime":"2017-06-06T19:39:43","mincalltime":"2017-06-04T17:24:45","phonenumber":"15339165005"},{"callintimes":0,"callmonth":"2017-07","calloutlimit5s":0,"callouttime0_6":0,"callouttimes":3,"callphonenumber":"95588","cityname":"西安","duration":881,"maxcalltime":"2017-07-14T18:23:46","mincalltime":"2017-07-08T16:49:49","phonenumber":"15339165005"},{"callintimes":0,"callmonth":"2015-10","calloutlimit5s":0,"callouttime0_6":0,"callouttimes":2,"callphonenumber":"95595","cityname":"西安","duration":273,"maxcalltime":"2015-10-25T18:00:00","mincalltime":"2015-10-25T17:57:00","phonenumber":"15339165005"},{"callintimes":1,"callmonth":"2016-12","calloutlimit5s":0,"callouttime0_6":0,"callouttimes":0,"callphonenumber":"95595","cityname":"西安","duration":19,"maxcalltime":"2016-12-04T11:13:29","mincalltime":"2016-12-04T11:13:29","phonenumber":"15339165005"},{"callintimes":0,"callmonth":"2017-03","calloutlimit5s":0,"callouttime0_6":0,"callouttimes":1,"callphonenumber":"95595","cityname":"西安","duration":168,"maxcalltime":"2017-03-12T09:42:16","mincalltime":"2017-03-12T09:42:16","phonenumber":"15339165005"},{"callintimes":4,"callmonth":"2017-05","calloutlimit5s":0,"callouttime0_6":0,"callouttimes":0,"callphonenumber":"95595","cityname":"西安","duration":225,"maxcalltime":"2017-05-24T14:35:27","mincalltime":"2017-05-17T09:19:27","phonenumber":"15339165005"},{"callintimes":2,"callmonth":"2017-06","calloutlimit5s":0,"callouttime0_6":0,"callouttimes":0,"callphonenumber":"95595","cityname":"西安","duration":91,"maxcalltime":"2017-06-02T17:31:41","mincalltime":"2017-06-01T15:28:41","phonenumber":"15339165005"},{"callintimes":4,"callmonth":"2017-07","calloutlimit5s":0,"callouttime0_6":0,"callouttimes":0,"callphonenumber":"95595","cityname":"西安","duration":464,"maxcalltime":"2017-07-17T12:49:14","mincalltime":"2017-07-17T10:13:58","phonenumber":"15339165005"},{"callintimes":0,"callmonth":"2017-08","calloutlimit5s":0,"callouttime0_6":0,"callouttimes":1,"callphonenumber":"95595","cityname":"西安","duration":150,"maxcalltime":"2017-08-06T22:53:39","mincalltime":"2017-08-06T22:53:39","phonenumber":"15339165005"}]
+    jsons = [{"callmonth": "2017-07", "callphonenumber": "95511", "maxcalltime": "2017-07-08T16:24:02",
+              "mincalltime": "2017-07-03T20:07:39"},
+             {"callmonth": "2017-03", "callphonenumber": "95522", "maxcalltime": "2017-03-14T18:20:10",
+              "mincalltime": "2017-03-14T18:20:10"},
+             {"callmonth": "2016-12", "callphonenumber": "95521", "maxcalltime": "2016-12-14T11:25:49",
+              "mincalltime": "2016-12-14T11:25:49"},
+             {"callmonth": "2015-11", "callphonenumber": "95528", "maxcalltime": "2015-11-05T16:32:00",
+              "mincalltime": "2015-11-04T12:14:00"},
+             {"callmonth": "2015-11", "callphonenumber": "95532", "maxcalltime": "2015-11-15T14:01:00",
+              "mincalltime": "2015-11-15T10:28:00"},
+             {"callmonth": "2015-12", "callphonenumber": "95533", "maxcalltime": "2015-12-14T10:02:00",
+              "mincalltime": "2015-12-14T10:02:00"},
+             {"callmonth": "2016-11", "callphonenumber": "95533", "maxcalltime": "2016-11-16T11:37:14",
+              "mincalltime": "2016-11-16T11:37:14"},
+             {"callmonth": "2016-12", "callphonenumber": "95533", "maxcalltime": "2016-12-13T10:59:35",
+              "mincalltime": "2016-12-13T10:59:35"}]
     pd_jsons = pd.DataFrame.from_dict(jsons, orient='columns')
     print(pd_jsons)
     print("------")
@@ -882,22 +841,27 @@ if __name__ == '__main__':
     print(s1)
 
     print("============ loc============")
-    df = pd.DataFrame([[1, 2], [4, 5], [7, 8]],index=['cobra', 'viper', 'sidewinder'],columns=['max_speed', 'shield'])
+    df = pd.DataFrame([[1, 2], [4, 5], [7, 8]], index=['cobra', 'viper', 'sidewinder'],columns=['max_speed', 'shield'])
     print(df)
-    df.loc[df['max_speed']==4,'pp']='home_1'
+    df.loc[df['max_speed'] == 4, 'pp'] = 'home_1'
     print(df)
     df.columns
-    # df.loc[df['max_speed1'] == 4, 'pp'] = 'home_1'
-    # df.columns = df.columns.str.strip().str.upper()
-    # df.columns = ['c1', 'c2', 'c3', 'c4', 'c5', 'c6', 'c7', 'c8', 'c9', 'c10', 'c11', 'c12', 'c13', 'c14', 'c15']
+    # df.loc[df['max_speed'] == 4, 'pp'] = 'home_1'
     # print(df)
 
-    print("============ df_result ============")
+    print("============ readcsv to pd============")
+    # mobileDev_2.csv
+    # userid, boAppNum, cellphoneConn, dellphoneIMEIConn, ignoreColumn
+    # 31924036, aa0, bb0, cc0, dd
+    df = pd.read_csv('/data/code/mobileDev_2.csv', header=None, names=["userid","boAppNum","cellphoneConn","dellphoneIMEIConn"])
+    print(df['dellphoneIMEIConn'])
+
+    print("============ df_result operations============")
     json_dict_list = """
         [
-        {"dunRecordId":38462991,"dunCaseId":37954432,"userId":39323726,"subject":"发出催款通知，逾期","body":"本人75","recordTypeId":0,"contactPersonTypeId":0,"costTime":0,"adminUserId":20002530,"isDisplay":true,"creationDate":"2018-09-15 10:15:01","dunStatusTypeId":0,"dunStatusTypeName":null,"causeType":0,"repayDate":null,"sourceId":0,"assetsId":0,"ddsUID":0,"contactStatus":0,"callNumber":""},
-        {"dunRecordId":38462992,"dunCaseId":37954432,"userId":39323726,"subject":"发出催款通知，逾期","body":"未接通","recordTypeId":0,"contactPersonTypeId":0,"costTime":0,"adminUserId":20002530,"isDisplay":false,"creationDate":"2018-09-15 10:15:10","dunStatusTypeId":0,"dunStatusTypeName":null,"causeType":0,"repayDate":null,"sourceId":8,"assetsId":0,"ddsUID":0,"contactStatus":8,"callNumber":"152****6975"},
-        {"dunRecordId":38463065,"dunCaseId":37954432,"userId":39323726,"subject":"发出催款通知，逾期","body":"联系人","recordTypeId":0,"contactPersonTypeId":2,"costTime":0,"adminUserId":20002530,"isDisplay":true,"creationDate":"2018-09-15 10:15:15","dunStatusTypeId":0,"dunStatusTypeName":null,"causeType":0,"repayDate":null,"sourceId":0,"assetsId":0,"ddsUID":0,"contactStatus":0,"callNumber":""}]
+        {"userId":9527,"subject":"发出催款通知，逾期","body":"本人75","creationDate":"2018-09-15 10:15:01","dunStatusTypeId":0,"causeType":0,"repayDate":null,"contactStatus":0,"callNumber":null},
+        {"userId":9527,"subject":"发出催款通知，逾期","body":"未接通","creationDate":"2018-09-15 10:15:10","dunStatusTypeId":0,"causeType":0,"repayDate":"2018-09-15 10:15:10","contactStatus":8,"callNumber":"152****6975"},
+        {"userId":9527,"subject":"发出催款通知，逾期","body":"联系人","creationDate":"2018-09-15 10:15:15","dunStatusTypeId":0,"causeType":0,"repayDate":"","contactStatus":0,"callNumber":"null"}]
         """
     dun_records = json.loads(json_dict_list)
     df_result = pd.DataFrame(columns=['userid', 'creationdate', 'dunstatustypeid'])
@@ -907,13 +871,18 @@ if __name__ == '__main__':
         df_temp = pd.DataFrame(data=dun_records)
         df_temp.columns = df_temp.columns.str.strip().str.lower()
         df_temp['creationdate'] = pd.to_datetime(df_temp['creationdate'])
+        print('all len:'+str(df_temp.shape[0]))
+        df_temp = df_temp[~pd.isnull(df_temp['callnumber'])]
+        print(df_temp)
+        print('all len without callnumber is null:' + str(df_temp.shape[0]))
+        df_temp = df_temp[df_temp["repaydate"].str.len() > 0]
         df_temp = df_temp[['userid', 'creationdate', 'dunstatustypeid']]
         df_temp_list.append(df_temp)
     if len(df_temp_list):
         df_result_temp = pd.concat(df_temp_list)
         df_result = df_result_temp.drop_duplicates().reset_index(drop=True)
     print(df_result)
-    aadf = df_result[df_result['dunstatustypeid']>0].max()
+    aadf = df_result[df_result['dunstatustypeid'] > 0].max()
     print(aadf['dunstatustypeid'])
     print(aadf.shape[0])
 
@@ -925,7 +894,9 @@ if __name__ == '__main__':
     listingtime = pd.to_datetime('2018-09-15 10:15:01')
     for k in range(len(date_list)):
         look_time = listingtime - timedelta(days=date_list[k])
-        df_record_per_userid = df_records[(df_records['creationdate'] < listingtime) & (df_records['creationdate'] >= look_time) & (df_records['dunstatustypeid'].isin(bad_set))]
+        df_record_per_userid = df_records[
+            (df_records['creationdate'] < listingtime) & (df_records['creationdate'] >= look_time) & (
+            df_records['dunstatustypeid'].isin(bad_set))]
         if len(df_record_per_userid):
             df_record_per_userid = df_record_per_userid.drop_duplicates(['userid', 'creationdate'])
             return_list.append(len(df_record_per_userid))

@@ -1,6 +1,6 @@
 import time
-from datetime import datetime, timedelta
-
+from datetime import datetime, timedelta, date
+# from dateutil import parser
 
 weekdays = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
 
@@ -58,11 +58,16 @@ if __name__ == "__main__":
     print('c.days is :{},c.seconds:{}'.format(c.days, c.seconds))
 
     print(datetime.now().date())
-
+    #parser.parser('2012-09-22T23:10:11')#
     a = datetime(2012, 9, 22, 23, 10, 11)
     print(a.date())
     b = datetime(2012, 9, 25, 23, 00, 10)
     now = datetime.today()
+    print(date.today())
+
+    for i in range(1, 6):
+        print(i)
+
     print('a is :{},b - a:{},today:{},add minitus:{}'.format(a, (b-a).days, now, now + timedelta(days=-30)))
 
     print('today:{}'.format(datetime.now()))
@@ -98,7 +103,7 @@ if __name__ == "__main__":
     print(udays)
 
     reg = "2016-01-24 21:15:47"
-    tm = datetime.fromtimestamp(reg / (10 ** 9)) if isinstance(reg, int) else datetime.strptime(reg,"%Y-%m-%d %H:%M:%S")
+    tm = datetime.fromtimestamp(reg / (10 ** 9)) if isinstance(reg, int) else datetime.strptime(reg, "%Y-%m-%d %H:%M:%S")
     dt = datetime.now()
     age = (dt - tm).days
     print(age)
