@@ -417,9 +417,8 @@ if __name__ == '__main__':
     dff_dup = pd.DataFrame(json.loads(infos))
     dup = dff_dup.drop_duplicates(subset=['UserId', 'Content', 'InsertTime'], keep='first', inplace=False)
     print(dup)
-    r = (
-        r"(【*公积金】|【*公 积 金】|【*公积金中心】)"
-    )
+    # http://pandas.pydata.org/pandas-docs/stable/reference/series.html
+    r = (r"(【*公积金】|【*公 积 金】|【*公积金中心】)")
     dup = dup[dup['Content'].str.contains(r)]
     print(dup)
     print('---')
@@ -841,7 +840,7 @@ if __name__ == '__main__':
     print(s1)
 
     print("============ loc============")
-    df = pd.DataFrame([[1, 2], [4, 5], [7, 8]], index=['cobra', 'viper', 'sidewinder'],columns=['max_speed', 'shield'])
+    df = pd.DataFrame([[1, 2], [4, 5], [7, 8]], index=['cobra', 'viper', 'sidewinder'], columns=['max_speed', 'shield'])
     print(df)
     df.loc[df['max_speed'] == 4, 'pp'] = 'home_1'
     print(df)
