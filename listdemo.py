@@ -65,7 +65,7 @@ if __name__ == "__main__":
              {"callintimes": 1, "callmonth": "2016-12", "callouttimes": 0,
               "callphonenumber": "95533", "duration": 81, "maxcalltime": "2016-12-13T10:59:35",
               "mincalltime": "2016-12-13T10:59:35", "phonenumber": "11715158282"},
-             {"callintimes": 2, "callmonth": "2017-01", "callouttimes": 1,
+             {"callintimes": 2, "callmonth": "2017-01-02", "callouttimes": 1,
               "callphonenumber": "95533", "duration": 397, "maxcalltime": "2017-01-21T14:15:42",
               "mincalltime": "2017-01-11T11:31:28", "phonenumber": "11715158282"}
              ]
@@ -97,9 +97,9 @@ if __name__ == "__main__":
     
     # print(map(lambda x: x['mincalltime'].replace('T',' '), jsons))
     # jsons['maxcall'] = jsons.map(lambda x: x['maxcalltime'].sub)
-    # call2 = groupby(call_month, itemgetter('callmonth'))
-    # sss = [{key: len(list(group))} for key, group in call2]
-    # print(sss)
+    call2 = groupby(ljson, itemgetter('callmonth'))
+    sss = [{key: len(list(group))} for key, group in call2]
+    print(sss)
 
     jg_1 = [{key: list(group)} for key, group in lstg]
     print('----jg1')

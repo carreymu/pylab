@@ -201,3 +201,12 @@ if __name__ == "__main__":
     #     print('---------err result:', bank)
     #     for i in items:bank_gp
     #         print(' ', i)
+
+    print('===============merge dict===============')
+    x = {'a': 1, 'b': 2}
+    y = {'b': 3, 'c': 4}
+    v = {'a': 2, 'c': 5}
+    z = {**x, **y, **v}
+    print(z)
+    print(len(z.keys()))
+    print(list(z.keys()))

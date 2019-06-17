@@ -107,3 +107,8 @@ if __name__ == "__main__":
     dt = datetime.now()
     age = (dt - tm).days
     print(age)
+
+    print("============long to datetime============")
+    long_time = 1560665747000
+    long_to_datetime = datetime.utcfromtimestamp(long_time / 1e3)
+    print(long_to_datetime)

@@ -1,7 +1,10 @@
 import re
 def phone():
     n = input("请输入一个手机号：")
-    if re.match(r'1[3,4,5,7,8]\d{9}',n):
+    re_phone = r"^.*[1][3-9][0-9]{9}.*$"
+    re_tel = r"^(010\d{8})|(0[2-9]\d{9})$"
+    re_tel_phone = r"(0[0-9]{2,3}\-)?([2-9][0-9]{6,7})+(\-[0-9]{1,4})?$"
+    if re.match(r'1[3,4,5,6,7,8]\d{9}',n):
         print("您输入的的手机号码是：\n",n)
         #中国联通：
         # 130，131，132，155，156，185，186，145，176
@@ -87,6 +90,10 @@ if __name__ == "__main__":
         print("Do not find match string")
 
     aa = re.search("1[34578]\\d{9}$", "13020280822")
+    re_tel = r"^(010\d{8})|(0[2-9]\d{9})$"
+    bb = re.search(re_tel, '0086400291')
+    print(('none' if bb is None else bb[0]))
+
 
 
     print("============ignore upper/lowercase and replace string ============")
