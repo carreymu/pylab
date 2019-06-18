@@ -206,7 +206,9 @@ if __name__ == "__main__":
     x = {'a': 1, 'b': 2}
     y = {'b': 3, 'c': 4}
     v = {'a': 2, 'c': 5}
+    w = {'d': 1, 'd': 2}
     z = {**x, **y, **v}
     print(z)
+    print(w)
     print(len(z.keys()))
     print(list(z.keys()))
