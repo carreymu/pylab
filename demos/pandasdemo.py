@@ -3,8 +3,8 @@ import json
 import os
 import pandas as pd
 import numpy as np
-import scipy
-from scipy import stats
+# import scipy
+# from scipy import stats
 from datetime import timedelta
 
 def adder(ad1,ad2):
@@ -590,10 +590,10 @@ if __name__ == '__main__':
         'score2': [92, 99, 69]}
     df = pd.DataFrame(d)
     print(df)
-    print(scipy.stats.hmean(df.iloc[:,1:3],axis=0))
-    print(scipy.stats.hmean(df.loc[:,'Score1']))
-    print(scipy.stats.gmean(df.iloc[:,1:3],axis=0))
-    print(scipy.stats.gmean(df.loc[:,'Score1']))
+    # print(scipy.stats.hmean(df.iloc[:,1:3],axis=0))
+    # print(scipy.stats.hmean(df.loc[:,'Score1']))
+    # print(scipy.stats.gmean(df.iloc[:,1:3],axis=0))
+    # print(scipy.stats.gmean(df.loc[:,'Score1']))
 
     print(df.std())
     print(df.std(axis=0))
@@ -852,8 +852,9 @@ if __name__ == '__main__':
     # mobileDev_2.csv
     # userid, boAppNum, cellphoneConn, dellphoneIMEIConn, ignoreColumn
     # 31924036, aa0, bb0, cc0, dd
-    df = pd.read_csv('/data/code/mobileDev_2.csv', header=None, names=["userid","boAppNum","cellphoneConn","dellphoneIMEIConn"])
-    print(df['dellphoneIMEIConn'])
+
+    # df = pd.read_csv('/data/code/mobileDev_2.csv', header=None, names=["userid","boAppNum","cellphoneConn","dellphoneIMEIConn"])
+    # print(df['dellphoneIMEIConn'])
 
     print("============ df_result operations============")
     json_dict_list = """
