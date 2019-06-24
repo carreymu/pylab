@@ -39,3 +39,13 @@ if __name__=='__main__':
 
 
 
+    tuple_demo = (("one",1), ("two",2), ("three",3), ("four",4))
+    print(tuple_demo[0])
+    print(len(tuple_demo))
+    print(len(tuple_demo[0]))
+    i = 0
+    flt_tuple = [x for x in tuple_demo if x[1] == 2 or x[1] == 3]
+    print(flt_tuple)
+    print(len(flt_tuple))
+    for i in tuple_demo:
+        print(i[0])

@@ -164,6 +164,9 @@ if __name__ == '__main__':
     print("============filtered,sorted result============")
     df_sort = pd_fund_userinfo[["inserttime","updatetime","ppduserid","id_card"]].sort_values(by=["inserttime"], ascending=False)
     print(df_sort)
+    print(df_sort['id_card'].tolist())
+    for item in df_sort['id_card'].tolist():
+        print(item)
     print('===')
     df_fuserid = df_sort[(~df_sort['id_card'].str.contains('34|18'))]
     df_fuserid = df_fuserid[df_fuserid['id_card'].str.contains('32')]
@@ -506,7 +509,7 @@ if __name__ == '__main__':
 
     print("============load json for dataframe============")
     # fileInfo = ''
-    filepath = 'file/jsonfile.json'
+    filepath = 'demos/file/jsonfile.json'
     if os.path.exists(filepath):
         # with open(filepath, 'r', encoding="latin-1") as f:
         #     fileInfo = json.load(f)
