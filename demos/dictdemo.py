@@ -1,6 +1,7 @@
 import heapq
 from itertools import groupby
 from operator import itemgetter
+from collections import defaultdict
 from collections import OrderedDict
 #底层使用heap实现,仅实现了从小到大的顺序排列
 if __name__ == "__main__":
@@ -212,3 +213,15 @@ if __name__ == "__main__":
     print(w)
     print(len(z.keys()))
     print(list(z.keys()))
+
+    print('===============add default dict demo===============')
+    var_config_lst = ['Lol', 'Lool', 'Look', 'loop', 'Loop']
+    check_dict = defaultdict(list)
+    for var_name in var_config_lst:
+        check_dict[var_name.lower()].append(var_name)
+    print(check_dict)
+
+    duplicate_list = [l for l in check_dict.values() if len(l) > 1]
+    if duplicate_list:
+        for l in duplicate_list:
+            print(f"variables {l} are duplicate!")
