@@ -184,7 +184,7 @@ if __name__ == '__main__':
 
     print("============get only one colum result============")
     print(pd_fund_userinfo["real_name"])
-    print(pd_fund_userinfo[(pd_fund_userinfo["real_name"]=='luopengfei') &(pd_fund_userinfo["ppduserid"]==123)]["real_name"])
+    print(pd_fund_userinfo[(pd_fund_userinfo["real_name"]=='luopengfei') & (pd_fund_userinfo["ppduserid"]==123)]["real_name"])
 
     print("============pandas unique result============")
     df_u = pd_fund_userinfo[["inserttime","real_name",'ppduserid']]

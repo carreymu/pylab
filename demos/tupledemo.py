@@ -40,7 +40,8 @@ if __name__=='__main__':
 
 
     tuple_demo = (("one",1), ("two",2), ("three",3), ("four",4))
-    print(tuple_demo[0])
+    print('---')
+    print(tuple_demo[0][1])
     print(len(tuple_demo))
     print(len(tuple_demo[0]))
     i = 0

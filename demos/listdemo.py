@@ -1,4 +1,5 @@
 import math
+import numpy as np
 from datetime import datetime, timedelta
 from itertools import compress
 from itertools import groupby
@@ -98,8 +99,8 @@ if __name__ == "__main__":
     # print(map(lambda x: x['mincalltime'].replace('T',' '), jsons))
     # jsons['maxcall'] = jsons.map(lambda x: x['maxcalltime'].sub)
     call2 = groupby(ljson, itemgetter('callmonth'))
-    sss = [{key: len(list(group))} for key, group in call2]
-    print(sss)
+    # sss = [{key: len(list(group))} for key, group in call2]
+    # print(sss)
 
     jg_1 = [{key: list(group)} for key, group in lstg]
     print('----jg1')
@@ -152,7 +153,15 @@ if __name__ == "__main__":
     List2.sort(reverse=True, key=len)
     print(List2)
 
-    a = [1, 2, 3, 4, 5, 6, 7, 8]
+    a = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+    b = np.array(a)
+    print(np.median(b))
+    print(np.percentile(b, 25))
+    print(np.percentile(b, 50))
+    print(np.percentile(b, 75))
+    print('*'*5)
+    a.pop(a.index(2))  # remove 3
+    print(a)
     print(list(filter(lambda x: x % 2, a)))
 
     jArr = [
