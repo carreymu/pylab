@@ -17,7 +17,6 @@ def compute_costNameTuple(records):
     total += s.shares * s.price
     return total
 
-
 if __name__=='__main__':
 
     # 命名元组,字典的替代,不像字典那样,一个命名元组是不可更改
@@ -40,7 +39,7 @@ if __name__=='__main__':
 
 
     tuple_demo = (("one",1), ("two",2), ("three",3), ("four",4))
-    print('---')
+    print('---'*5)
     print(tuple_demo[0][1])
     print(len(tuple_demo))
     print(len(tuple_demo[0]))
@@ -50,3 +49,6 @@ if __name__=='__main__':
     print(len(flt_tuple))
     for i in tuple_demo:
         print(i[0])
+    print('---' * 5)
+    tuple_5 = (1, 3, 4, 5, 6)
+    print(tuple_5[4])

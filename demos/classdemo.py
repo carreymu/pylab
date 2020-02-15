@@ -127,6 +127,26 @@ class Point:
         self.x = x
         self.y = y
 
+
+
+#######inheritance#########
+class Animal:
+    def __init__(self, can_fly=False):
+        self.can_fly = can_fly
+
+    def fly(self):
+        print(('I CAN FLY!' if self.can_fly else 'I can not fly'))
+
+class Dog(Animal):
+    def bark(self):
+        print('Woooooooooooof')
+
+class Fly:
+    def fly(self):
+        print('I am a fly and I am happy to fly.')
+    def flying(self):
+        print('I am flying')
+
 if __name__ =="__main__":
     print("============ __repr__ replace __str__============")
     p = Pair(3, 4)
@@ -143,11 +163,11 @@ if __name__ =="__main__":
     print('The date is {:dmy}'.format(d))
 
     print("============ Customized [with] ============")
-    conn = LazyConnection(('www.python.org',80))
-    with conn as s:
-        pass
-        with conn as s2:
-            pass
+    # conn = LazyConnection(('www.python.org',80))
+    # with conn as s:
+    #     pass
+    #     with conn as s2:
+    #         pass
 
     print("============add check to class attribute ============")
     a = Person('guido')
@@ -181,3 +201,13 @@ if __name__ =="__main__":
     print('p.x is {},p.y is {}'.format(p.x, p.y))
     print(Point.x)
 
+    print("============inheritance============")
+    d = Dog()
+    # d.can_fly = True
+    d.fly()
+    d.bark()
+
+    print("============override============")
+    f = Fly()
+    f.fly()
+    f.flying()

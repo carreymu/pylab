@@ -48,7 +48,44 @@ def datediff_timestamp(starttime, endtime=None, rnd=True):
         result = td.days + td.seconds/86400
     return result
 
+def month_delta(start_date, end_date):
+    """
+    返回 end_date  - start_date  的差值
+        :param start_date:
+        :param end_date:
+        :return:  month_delta   int
+    """
+    flag = True
+    if start_date > end_date:
+        start_date, end_date = end_date, start_date
+        flag = False
+    year_diff = end_date.year - start_date.year
+    end_month = year_diff * 12 + end_date.month
+    delta = end_month - start_date.month
+    return -delta if flag is False else delta
+
+
 if __name__ == "__main__":
+    dt = datetime.now()
+    (year, month, day) = (dt.year, dt.month, dt.day)
+    if dt < datetime(year, month, day, 9, 0, 0) or dt > datetime(year, month, day, 17, 0, 0):
+        print('-3')
+    print("============diff month============")
+    print(datetime.now().hour)
+    end = date(2018, 4, 6)
+    start = date(2018, 1, 3)
+
+    a = datetime(2018, 3, 10, 9, 47, 0)
+    b = datetime(2017, 9, 8, 9, 47, 0)
+    c = datetime(2019,3,4,0,0,0)
+    d = datetime(2019,12,18,0,0,0)
+    print((d-c).days)
+
+    print(month_delta(a, b))
+    print(month_delta(start, end))
+    print(month_delta(end, start))
+
+    print("============long time *** ============")
     start = int(round(time.time() * 1000))
     print('start:{}'.format(start))  # 毫秒级时间戳
     print("============init date *** ============")
@@ -82,6 +119,10 @@ if __name__ == "__main__":
     print(f'yp:{yp},type of yp:{type(yp)},yf:{yf},type of yf:{type(yf)},diff:{datetime.today() - yp}')
     print(f'is bigger:{yp>y}')
 
+    end_date = datetime.now()
+    st_date = (end_date - timedelta(days=90)).date() + timedelta(days=1)
+    print(f'st_date - 90 is {st_date}')
+
     print("============long to datetime ============")
     your_timestamp = 1547379258906
     str = "2019-01-01 12:01:01"
@@ -112,3 +153,7 @@ if __name__ == "__main__":
     long_time = 1560665747000
     long_to_datetime = datetime.utcfromtimestamp(long_time / 1e3)
     print(long_to_datetime)
+
+    print("============long to utc============")
+    print(long_to_datetime.strftime("%Y-%m-%dT%H:%M:%S.000 +0800"))
+    print(datetime.strptime("2019-06-16 06:15:47", "%Y-%m-%d %H:%M:%S").strftime("%Y-%m-%dT%H:%M:%S.000 +0800"))
