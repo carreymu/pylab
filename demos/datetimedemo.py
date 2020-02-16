@@ -157,3 +157,11 @@ if __name__ == "__main__":
     print("============long to utc============")
     print(long_to_datetime.strftime("%Y-%m-%dT%H:%M:%S.000 +0800"))
     print(datetime.strptime("2019-06-16 06:15:47", "%Y-%m-%d %H:%M:%S").strftime("%Y-%m-%dT%H:%M:%S.000 +0800"))
+
+    print("============ format date ============")
+    d = Date(2013, 12, 22)
+    print(format(d))
+    print(format(d, 'mdy'))
+    print('The date is {:ymd}'.format(d))
+    print('The date is {:mdy}'.format(d))
+    print('The date is {:dmy}'.format(d))

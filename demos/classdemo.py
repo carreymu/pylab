@@ -154,14 +154,6 @@ if __name__ =="__main__":
     print('p is {0}'.format(p))
     print(p)
 
-    print("============ format date ============")
-    d = Date(2013, 12, 22)
-    print(format(d))
-    print(format(d, 'mdy'))
-    print('The date is {:ymd}'.format(d))
-    print('The date is {:mdy}'.format(d))
-    print('The date is {:dmy}'.format(d))
-
     print("============ Customized [with] ============")
     # conn = LazyConnection(('www.python.org',80))
     # with conn as s:
