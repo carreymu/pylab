@@ -17,7 +17,7 @@ def handle_request(client_connection):
     print(request.decode())
     http_response = b"""\
             HTTP/1.1 200 OK
-            Hello, World!
+            Hello, webserver3c.py!
             """
     client_connection.sendall(http_response)
     time.sleep(60)

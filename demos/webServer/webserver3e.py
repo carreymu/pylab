@@ -19,10 +19,10 @@ def handle_request(client_connection):
     request = client_connection.recv(1024)
     print(request.decode())
     http_response = b"""\
-HTTP/1.1 200 OK
+    HTTP/1.1 200 OK
 
-Hello, World!
-"""
+    Hello, webserver3e.py!
+    """
     client_connection.sendall(http_response)
     # sleep to allow the parent to loop over to 'accept' and block there
     time.sleep(3)
