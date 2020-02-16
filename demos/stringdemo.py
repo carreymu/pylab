@@ -7,9 +7,43 @@ class Info:
         self.n = n
 
 if __name__ == "__main__":
-    (a,b,c) = ("-1.0",)*3
+    print("============String compare============")
+    print('201808'.isdigit())
+    print('201808' > '201807')
+    print('201808' > '201809')
+    
+    d1,d2 = "area.provinceid".split(".")
+    print(f"d1:{d1}, d2:{d2}")
+    print(1 if '0' else 0)
+    ration ='tongdun_Small_loan_3m_num_phone_ration'
+    print(re.sub(r'\.|\-|\_', '',ration))
+    ration_7 = ration[:-7]
+    print(ration_7)
+    *_, ruleid, _, match_type = ration_7.split("_")
+    print("*"*20)
+    match_type = {
+        "express":"快递",
+        "takeout":"外卖",
+        "takeout_send": "外卖员",
+        "takeout_receive": "外卖用户",
+        "express_send": "快递员"
+    }
+    print(1 if match_type.get("express_send",None) else 0)
+    str1 = "if_100_surname_express"
+    str2 = "if_6_phone_in_nlp_takeout_receive"
+    num, *_,hh, match = str1[3:].split("_")
+    print(int(num)-2)
+    print(hh)
+    print(match)
+    n,*_,h,m = str2[3:].split("_")
+    print(int(n)-2)
+    print(h)
+    print(m)
+    print("*"*20)
+
+    (a, b, c) = ("-1.0",) *3
     # wrong (a, b, c) = ("-1.0") * 3
-    print(a,b,c)
+    print(a, b, c)
     print(len('少年宪法对'))
     print("============String split============")
     line = 'asdf fjdk; afed, fjek,asdf, | foo'
@@ -21,6 +55,11 @@ if __name__ == "__main__":
     print('flds1 string ', flds1)
     dellimiters = flds1[1::2]
     print('dellimiters string ', dellimiters)
+
+    print('.' in '3.')
+    head, tail = '3.'.split(".")
+    res = float('3'+'.'+'445')
+    print(f'head:{head},tail:{tail},result:{res}')
 
     flds2 = '---'.join(v+d for v, d in zip(vals, dellimiters))
     print('vals is %s,dellimiters is %s ' % (vals, dellimiters))
@@ -40,7 +79,7 @@ if __name__ == "__main__":
     url = "baidu.com"
     res = url.startswith(tuple(lstStart))
     print('startswith use list.', res)
-    if(any(name.endswith(('com','cz'))) for name in urls):
+    if(any(name.endswith(('com', 'cz'))) for name in urls):
         print('any matched, do sth.')
 
     print("============String replace in formating============")
@@ -48,6 +87,7 @@ if __name__ == "__main__":
     print("s = '{name} has {n} messages.'", s.format(n=2, name='Jerry'))
     nm = "tom"
     n = 10
+    print('$$' * 5)
     print(f"s = '{nm} has {n} messages.'")
     n = 2
     name = "Marry"

@@ -1,4 +1,4 @@
-import re
+# import re
 import json
 import os
 import pandas as pd
@@ -10,19 +10,59 @@ from datetime import timedelta
 def adder(ad1,ad2):
     return ad1+ad2
 
+
+'''
+list_axis=0,横轴; list_axis=1,纵轴
+'''
+def list_to_df(data, columns, list_axis=1):
+    if data is None or len(data) == 0:
+        dframe = pd.DataFrame(columns=columns)
+    elif isinstance(data, dict):
+        dframe = pd.DataFrame([data]).reindex(columns=columns)
+    elif isinstance(data, list):
+        dframe = pd.DataFrame(data).reindex(columns=columns) if list_axis == 1 else pd.DataFrame(data, columns=columns)
+    else:
+        dframe = pd.DataFrame(columns=columns)
+    return dframe
+
+'''
+pandas.Series.str.contains parameters:
+    pat：str. Character sequence or regular expression.
+    case：bool, default True. If True, case sensitive.
+    regex：bool, default True. If True, assumes the pat is a regular expression. If False, treats the pat as a literal string.
+'''
+def contains(series, pat, regex=True, reverse=False):
+    if reverse:
+        return series[~series.str.contains(pat, regex=regex)]
+
+    return series[series.str.contains(pat, regex=regex)]
+
 if __name__ == '__main__':
-    print("============dict to df============")
-    result = {
-        "upa_score_interval_day": 1,
-        "upa_trans_at_ttl_suc_in_is180d": 2,
-        "upa_trans_at_ttl_suc_in_6monmax": 3,
-    }
-    print(pd.cut(np.array([0.2,1.4,2.5,6.2,9.7,2.1]),3,retbins=True))
+    print("============reset_index and reindex============")
+    result = pd.DataFrame(np.arange(9).reshape((3, 3)), index=['1', '5', '6'], columns=['c1', 'c2', 'c3'])
+    print(result)
+    result2 = result.reset_index()
+    print(result2)
+    result3 = result.reindex(index=['1', '2', '3'])
+    print(result3)
+    print("============pd.cut============")
+    print(pd.cut(np.array([0.2, 1.4, 2.5, 6.2, 9.7, 2.1]), 3, retbins=True))
     print(pd.cut(np.array([0.2, 1.4, 2.5, 6.2, 9.7, 2.1]), [1, 2, 3], retbins=True))
-    # pd_fund_userinfo1 = pd.DataFrame.from_dict(result, orient='index')
-    # pd_fund_userinfo1.reset_index(level=0, inplace=True)
+
+    print("============dict to df============")
+    result = {"in_is180d": 2, "interval_day": 1, "monmax": 3}
+    pd_fund_userinfo1 = pd.DataFrame.from_dict(result, orient='index')
+    print(pd_fund_userinfo1)
+    print('*' * 5)
+    pd_fund_userinfo1.reset_index(level=0, inplace=True)
+    print(pd_fund_userinfo1)
+    print('*' * 10)
     pd_fund_userinfo1 = pd.DataFrame(result, index=[0])
     print(pd_fund_userinfo1)
+    print('*' * 15)
+    columns = ["interval_day", "in_is180d", "monmax"]
+    dfm = list_to_df(result, columns=columns)
+    print(dfm)
 
     strt = """
     [
@@ -39,7 +79,7 @@ if __name__ == '__main__':
             "corporation_name": null,
             "fund_balance": null,
             "last_pay_date": null,
-            "userid": null,
+            "userid": "12",
             "monthly_customer_income": null,
             "pay_status": null,
             "subsidy_corporation_ratio": null,
@@ -66,13 +106,13 @@ if __name__ == '__main__':
             "customer_number": null,
             "gjj_number": null,
             "begin_date": null,
-            "id_card": "31242519921122041*",
+            "id_card": "31242519021122041*",
             "real_name": "*小明",
             "base_number": null,
             "corporation_name": null,
             "fund_balance": null,
             "last_pay_date": null,
-            "userid": null,
+            "userid": "12",
             "monthly_customer_income": null,
             "pay_status": null,
             "subsidy_corporation_ratio": null,
@@ -99,13 +139,13 @@ if __name__ == '__main__':
             "customer_number": null,
             "gjj_number": null,
             "begin_date": null,
-            "id_card": "32242519921122041*",
+            "id_card": "32242519021122041*",
             "real_name": "luo****fei",
             "base_number": null,
             "corporation_name": null,
             "fund_balance": null,
             "last_pay_date": null,
-            "userid": null,
+            "userid": "12",
             "monthly_customer_income": null,
             "pay_status": null,
             "subsidy_corporation_ratio": null,
@@ -132,13 +172,13 @@ if __name__ == '__main__':
             "customer_number": null,
             "gjj_number": null,
             "begin_date": null,
-            "id_card": "342425199211220418",
+            "id_card": "342425190211220418",
             "real_name": "luopengfe*",
             "base_number": null,
             "corporation_name": null,
             "fund_balance": null,
             "last_pay_date": null,
-            "userid": null,
+            "userid": "12",
             "monthly_customer_income": null,
             "pay_status": null,
             "subsidy_corporation_ratio": null,
@@ -161,6 +201,9 @@ if __name__ == '__main__':
     ]
     """
     pd_fund_userinfo = pd.DataFrame(json.loads(strt))
+    print(pd_fund_userinfo[['userid']])
+    pd_fund_userinfo[['userid']] = pd_fund_userinfo[['userid']].astype(int)
+    print(pd_fund_userinfo[['userid']])
     print("============filtered,sorted result============")
     df_sort = pd_fund_userinfo[["inserttime","updatetime","ppduserid","id_card"]].sort_values(by=["inserttime"], ascending=False)
     print(df_sort)
@@ -240,6 +283,7 @@ if __name__ == '__main__':
 
 
     dff = pd.DataFrame(json.loads(strr))
+    print(dff)
     print("============loop 2============")
     for row in dff[["userid", "register_date"]].itertuples(index=True, name='Pandas'):
         print("uid:{},regdate:{}".format(getattr(row, "userid"), getattr(row, "register_date")))
@@ -356,10 +400,22 @@ if __name__ == '__main__':
     df_phoneinfo=pd.DataFrame(json.loads(phoneinfo))
     df_phoneinfo=df_phoneinfo[["callphonenumber","calltypeid","userid","talktime"]]
     print('----')
+    import re
+    df_phoneinfo['is_mobile'] =  df_phoneinfo['callphonenumber'].map(lambda x: re.search('1[34578]\\d{9}$', x))
     print(df_phoneinfo)
+    df_calltypeid = df_phoneinfo['talktime'][df_phoneinfo['calltypeid'] == 1]
+    print(df_calltypeid)
     print('----groupby1')
     dfg_g1_phoneinfo = df_phoneinfo.groupby(['callphonenumber']).agg({'callphonenumber':['count'], 'talktime':['sum']})
     print(dfg_g1_phoneinfo)
+    dfg_g1_avg = dfg_g1_phoneinfo[dfg_g1_phoneinfo['callphonenumber']['count']>1].reset_index(drop=True)
+    print(dfg_g1_avg['callphonenumber'])
+    print('----' * 3)
+    print(dfg_g1_avg['talktime'].mean().item())
+    print('----' * 3)
+    # print(dfg_g1_phoneinfo['talktime'])
+    # dfg_g1_avg = dfg_g1_avg[dfg_g1_phoneinfo['talktime']['sum']/dfg_g1_phoneinfo['callphonenumber']['count']]
+    # print(dfg_g1_avg)
     print('----groupby2')
     dfg_g2_phoneinfo = df_phoneinfo.groupby(df_phoneinfo['callphonenumber']).agg({'callphonenumber': ['count']})
     print(dfg_g2_phoneinfo)
@@ -378,11 +434,11 @@ if __name__ == '__main__':
                         'B': ['B0', 'B1', 'B2', 'B3'],
                         'C': ['C0', 'C1', 'C2', 'C3'],
                         'D': ['D0', 'D1', 'D2', 'D3']},
-                       index = [0, 1, 2, 3])
+                       index=[0, 1, 2, 3])
     df4 = pd.DataFrame({'B': ['B2', 'B3', 'B6', 'B7'],
                         'D': ['D2', 'D3', 'D6', 'D7'],
                         'F': ['F2', 'F3', 'F6', 'F7']},
-                       index = [2, 3, 6, 7])
+                       index=[2, 3, 6, 7])
     result_ax0 = pd.concat([df1, df4], axis=0, join='inner')
     print(result_ax0)
     result_ax1 = pd.concat([df1, df4], axis=1, join='inner')
@@ -410,6 +466,12 @@ if __name__ == '__main__':
         "UserId":9527
     },
     {
+        "Content":"Hello, Mr. Right！您[东北蛤蟆公积金的中心]哈哈了",
+        "InsertTime":"2010-05-12T19:48:57.754",
+        "MobileNumber":"95222",
+        "UserId":9527
+    },
+    {
         "Content":"Hello, Mr. left！您【公积金咋地了",
         "InsertTime":"2010-05-12T19:48:57.754",
         "MobileNumber":"95222",
@@ -420,15 +482,16 @@ if __name__ == '__main__':
     dff_dup = pd.DataFrame(json.loads(infos))
     dup = dff_dup.drop_duplicates(subset=['UserId', 'Content', 'InsertTime'], keep='first', inplace=False)
     print(dup)
+    print('---')
     # http://pandas.pydata.org/pandas-docs/stable/reference/series.html
-    r = (r"(【*公积金】|【*公 积 金】|【*公积金中心】)")
+    r = (r"(【*公积金】|【*公 积 金】|【.*?公积金中心】|\[*公积金.*?中心\])")
     dup = dup[dup['Content'].str.contains(r)]
     print(dup)
     print('---')
     dup = dup[dup['MobileNumber'].str[0:1:1] == '1']
     print(dup)
 
-    print("============merge 2 dataframes============")
+    print("============merge 2 dataframes, use pipe, extract============")
     appcontact ="""
     [
         {
@@ -472,43 +535,77 @@ if __name__ == '__main__':
     usercontact ="""
         [
       {
-        "phone": "15805239710",
-        "realname": "万达江涛",
+        "phone": "15833339710",
+        "realname": "万达江涛应还20元",
         "userid": 2307643
       },
       {
         "phone": "13813341527",
-        "realname": "东升科技",
+        "realname": "【话费流量提醒】您好！截至07月17日11时59分，您当月已消费：62.28元，您的话费余额为27.73元。",
         "userid": 2307643
       },
       {
         "phone": "",
-        "realname": "东大街",
+        "realname": "东【大街】还款金额为323.01元ee33",
+        "userid": 2307643
+      },
+      {
+        "phone": "",
+        "realname": "额度: fdafdafd调度: fdafdaf费率: fdafdaf",
         "userid": 2307643
       }
     ]
     """
     dff1 = pd.DataFrame(json.loads(appcontact))
     dff2 = pd.DataFrame(json.loads(usercontact))
-    dff_strip = dff1[['MobileNumber','Name']].apply(lambda x: x.str.strip())
+    ser = dff2['realname']
+    print('*' * 20)
+    aa = ser.str.extract(r'(还款金额为|应还)([0-9]{1,10})(.*)(元+)', expand=True)[1].dropna().astype(int)
+    aaa = ser.str.extract(r'(还款金额为|应还)([0-9]{1,10})(.*)(元+)', expand=True)[2].dropna()
+    aaaa = ser.str.extract(r'(还款金额为|应还)(\d+|\d*\.\d{2})(元+)', expand=False).dropna()[1]
+    a_0 = ser.str.extract(r'(余额|余额为|余额是|账户余额为|可用额度为)(\d+|\d*\.\d{2})(元+)').dropna()
+    a_1 = ser.str.extract(r'【(.*?)】').dropna()
+    # extract(r"[借条|为]([0-9]+)", expand=False).dropna().astype(int).max()
+    # aa = ser.str.contains(r'(还款金额为|应还)([0-9]{1,10})(.*)(元+)')
+    print(a_0)
+    print(a_1)
+    print("大街 in a_1? ",'大街' in a_1[0].tolist())
+    print('*' * 20)
+    print(aa)
+    print(aaa)
+    print(aaaa)
+    print('aa##' * 10)
+
+    bb = ser.str.contains(r'(首次+)([0-9]{1,10})')
+    print(bb)
+    print('bb##' * 10)
+    sp = ser.pipe(contains, r'东|人')
+    sp = sp.pipe(contains, r'大')
+    print(sp)
+    print('*' * 20)
+
+    dff_strip = dff1[['MobileNumber', 'Name']].apply(lambda x: x.str.strip())
     print(dff_strip)
     print(dff1)
     print(dff2)
     print('-------drop duplicate rows')
     print(dff1.drop_duplicates(keep='last'))
-    result_ax3 = dff1.merge(dff2, left_on='MobileNumber',right_on='phone', how='inner')[['realname','phone','MobileNumber']]
+    result_ax3 = dff1.merge(dff2, left_on='MobileNumber', right_on='phone', how='inner')[['realname','phone','MobileNumber']]
     result_ax4 = dff1.merge(dff2, left_on='Name', right_on='realname', how='inner')[['realname','phone','MobileNumber']]
-    print('----result_ax3--count:',result_ax3.shape[0])
+    print('----result_ax3--count:', result_ax3.shape[0])
     print(result_ax3)
-    print('----result_ax4--count:',result_ax4.shape[0])
+    print('----result_ax4--count:', result_ax4.shape[0])
     print(result_ax4[['realname']].drop_duplicates())
     print('----result_ax5')
-    result_ax5 = pd.concat([result_ax3,result_ax4]).drop_duplicates()
+    result_ax5 = pd.concat([result_ax3, result_ax4]).drop_duplicates()
     print(result_ax5)
-    print(dff1['Name'].ix[1])
+    #print(dff1['Name'].ix[1])
+    print("============add a new index ===========")
+    dff1['A'] = list(range(len(dff1.index)))
+    print(dff1)
 
     print("============load json for dataframe============")
-    # fileInfo = ''
+    fileInfo = ''
     filepath = 'demos/file/jsonfile.json'
     if os.path.exists(filepath):
         # with open(filepath, 'r', encoding="latin-1") as f:
@@ -544,6 +641,7 @@ if __name__ == '__main__':
          'Revenue': [23400344.567, 54363744.678, 56789117.456, 4132454.987]}
     dfQuarters = pd.DataFrame(d)
     print(dfQuarters)
+    print('-' * 10)
 
     pd.options.display.float_format = '{:,.2f}'.format #'{:.2f}'.format/'{:.2E}'.format
     print(dfQuarters)
@@ -609,7 +707,7 @@ if __name__ == '__main__':
     print(df.loc[:, 'Score1'].var())
 
     print("============pipe/apply/applymap of dataframe============")
-    print(df[['Score1','Score2']].pipe(adder,2))
+    print(df[['Score1','Score2']].pipe(adder, 2))
     # row
     print(df[['Score1','Score2']].apply(np.mean,axis=1))
     # column
@@ -684,7 +782,7 @@ if __name__ == '__main__':
     print(df.loc[df['Score'].idxmax()])
     print(df.loc[df['Score'].idxmin()])
 
-    print("============ get the unique values in dataframe============")
+    print("============ get the unique values in dataframe/distinct============")
     print(df.drop('is_duplicate',axis=1).drop_duplicates())
     print(df.drop('is_duplicate', axis=1).drop_duplicates(keep='last'))
 
@@ -696,8 +794,8 @@ if __name__ == '__main__':
     print(df.Name.unique())
     print(df.Score.unique())
     print("============ ix/iloc/loc of dataframe============")
-    print(df.ix[:,'Score'])
-    print(df.ix[2,1])
+    #print(df.ix[:,'Score'])
+    #print(df.ix[2,1])
     # .loc[[Row_names], [column_names]]
     # .iloc[1:m, 1:n] 1 to m rows and 1 to n columns
 
@@ -720,7 +818,7 @@ if __name__ == '__main__':
             "interestRate": "<0.12",
             "lastLendAmountRange": "0-2999",
             "inserttime": 1527737429398,
-            "xttr1": "",
+            "xttr1": 0.33,
             "xttr3": "",
             "xttr2": "",
             "userid": 57723918,
@@ -735,7 +833,7 @@ if __name__ == '__main__':
             "interestRate": "<0.12",
             "lastLendAmountRange": "0-2999",
             "inserttime": 1527737429398,
-            "xttr1": "",
+            "xttr1": 0.35,
             "xttr3": "",
             "xttr2": "",
             "userid": 57723918,
@@ -748,7 +846,9 @@ if __name__ == '__main__':
             "taskid": "536ae0f30eb94b5eadd10081be0e47ef"
         }]
     pd_res = pd.DataFrame.from_dict(dfResult, orient='columns')
-    print(pd_res.ix[:, 'lastLendTillDay'])
+    #print(pd_res.ix[:, 'lastLendTillDay'])
+    to_dict = pd_res.to_dict(orient='records')
+    print(to_dict)
 
     print("============ long of dataframe============")
     d = {
@@ -863,11 +963,10 @@ if __name__ == '__main__':
     json_dict_list = """
         [
         {"userId":9527,"subject":"发出催款通知，逾期","body":"本人75","creationDate":"2018-09-15 10:15:01","dunStatusTypeId":0,"causeType":0,"repayDate":null,"contactStatus":0,"callNumber":null},
-        {"userId":9527,"subject":"发出催款通知，逾期","body":"未接通","creationDate":"2018-09-15 10:15:10","dunStatusTypeId":0,"causeType":0,"repayDate":"2018-09-15 10:15:10","contactStatus":8,"callNumber":"152****6975"},
-        {"userId":9527,"subject":"发出催款通知，逾期","body":"联系人","creationDate":"2018-09-15 10:15:15","dunStatusTypeId":0,"causeType":0,"repayDate":"","contactStatus":0,"callNumber":"null"}]
+        {"userId":9527,"subject":"发出催款通知，逾期","body":"未接通","creationDate":"2018-09-15 10:15:10","dunStatusTypeId":1,"causeType":2,"repayDate":"2018-09-15 10:15:10","contactStatus":8,"callNumber":"152****6975"},
+        {"userId":9527,"subject":"发出催款通知，逾期","body":"联系人","creationDate":"2018-09-15 10:15:15","dunStatusTypeId":2,"causeType":5,"repayDate":"","contactStatus":0,"callNumber":"null"}]
         """
     dun_records = json.loads(json_dict_list)
-    df_result = pd.DataFrame(columns=['userid', 'creationdate', 'dunstatustypeid'])
     df_temp_list = []
 
     if dun_records:
@@ -906,3 +1005,40 @@ if __name__ == '__main__':
         else:
             return_list.append(0)
     print(return_list)
+
+    print("============ df quantile============")
+    df = pd.DataFrame(np.array([100, 1, 10, 100]), columns=['a'])
+    print(df.quantile(.1))
+    dfs = pd.DataFrame(np.array([[3, 100], [1, 1], [2, 10], [4, 100]]), columns=['a', 'b'])
+    print(dfs.quantile(.75))
+    df_quantile = dfs["a"].quantile([0.25, 0.5, 0.75])
+    print(f'quantile 0.75 is {df_quantile.loc[0.75]}')
+    print("============ list to df============")
+    a = [['a', '1.2', '4.2'], ['b', '70', '0.03'], ['x', '5', '0']]
+    #data = pd.DataFrame(a, columns=['one', 'two', 'three'])
+    data = list_to_df(a, columns=['one', 'two', 'three'], list_axis=0)
+    # wrong demo
+    dt = pd.DataFrame(a).reindex(columns=['one', 'two', 'three'])
+    print(data)
+    print(dt)
+
+    print("============ df value counts============")
+    data1={'key1':['python','java','python','php'],'key2':['php','java','python','SAS'],'key3':['php','java','python','SAS']}
+    b=pd.DataFrame(data1)
+    print(b)
+    print('groupby key1'+".."*10)
+    # vc =b['key1'].value_counts()
+    b['freq'] = b.groupby('key1')['key1'].transform('count')
+    print(b)
+    print('............\n')
+    print(b['freq'])
+    # print(vc.ix[0])
+    print('............\n')
+    print(pd.value_counts)
+
+
+    a = [['中国地质大学（北京）', '116.35', '39.99'], ['北京经济技术职业学院', '116.47', '39.98'], ['北京经济管理职业学院', '116.47', '39.98']]
+    #data = pd.DataFrame(a, columns=['one', 'two', 'three'])
+    data = pd.DataFrame(a, columns=['school_name', 'longitude', 'latitude'])
+
+    print(data)

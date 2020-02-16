@@ -1,6 +1,6 @@
 import re
-def phone():
-    n = input("请输入一个手机号：")
+def phone(n):
+    #n = input("请输入一个手机号：")
     re_phone = r"^.*[1][3-9][0-9]{9}.*$"
     re_tel = r"^(010\d{8})|(0[2-9]\d{9})$"
     re_tel_phone = r"(0[0-9]{2,3}\-)?([2-9][0-9]{6,7})+(\-[0-9]{1,4})?$"
@@ -45,13 +45,28 @@ def matchcase(word):
 
 if __name__ == "__main__":
     print("============find all match String ============")
+    print('200'>'50')
     datepat = re.compile(r'\d+/\d+/\d+')
     text = 'Today is 11/27/2012. PyCon starts 3/13/2013.'
     allMatch = datepat.findall(text)
     print("allMatch is :", allMatch)
+    string = "[('您好：验证码为764951，您正在进行手机注册，若非本人操作64951，还7天逾期。',)]查询返回的是这个"
+    print("allMatch10 is :", re.findall(r"还.*?天逾期*", string)[0])
 
-    string = "[('您好：验证码为764951，您正在进行手机注册，若非本人操作64951，请及时联系拍拍贷。',)]查询返回的是这个"
-    print("allMatch11 is :", re.findall(r"\d+\.?\d*", string))
+    str_s = '尊敬的客户，您于2018年05月25日00时15分，已成功充值+30.01元。和包充话费，省钱更优惠。回复“HB”或点击http://dx.10086.cn/UYjYbeq，新注册即可领取50元话费券+500M省内流量。【中国移动】'
+    # (-?\d+)(.\d+) 
+    # ([+-]?(\d+|\d*\.\d{2}))
+    # [\\+\\-]?[\\d]+(\\.[\\d]+)?
+    print("str_add_e is :", re.findall(r"(充值|交费|缴纳了|为本机充值|成功缴费|成功交纳话费|充值（交费）|成功缴费/充值)([+-]?(\d+|\d*\.\d{1,2}))(元+)", str_s))
+    print("str_s is :", re.findall(r"(余额|余额为|余额是|账户余额为|可用额度为)([+-]?(\d+|\d*\.\d{1,2}))(元+)", str_s))
+    regx = re.compile(r"【(.*?)】")
+    print("【str_s is】 :", regx.findall(str_s)[0])
+
+    string = "[('您好：取验证为764951，您正在进行手机成功注册，若非本人操作64951，还7天逾期。',)]查询返回的是这个"
+    print("allMatch11 is :", re.findall(r"(^取验证码)[成功注册|注册成功|成功激活]*", string))
+
+    string = "[('您好：验证码为764951，您正在进行手机注册，若非本人操作64951，请及时联系我。',)]查询返回的是这个"
+    print("allMatch12 is :", re.findall(r"\d+\.?\d*", string))
     # tp = re.compile(r'(\d+)')
     # res = tp.sub(r'\1', textx)
     # print("res11 is ", res)
@@ -62,6 +77,11 @@ if __name__ == "__main__":
     print(f'find matched num:{number}, replaced string:{result}')
 
     print("============find all match group ============")
+    aaa = "aa额度: dafdaf调度: fdafdaf费率: fdafdaf"
+    d = re.compile(r'.*?额度: (.*)调度')
+    dm = d.match(aaa)
+    print(dm.groups())
+
     datepa = re.compile(r'(\d+)/(\d+)/(\d+)')
     m = datepa.match('11/27/2012')
     print(" m.group() is %s,m.group(0) is %s, m.group(1) is %s, m.group(2) is %s" % (m.groups(), m.group(0), m.group(1), m.group(3)))
@@ -75,9 +95,9 @@ if __name__ == "__main__":
     print("re.findall(r'(\d+)/(\d+)/(\d+)', text) is ", re.findall(r'(\d+)/(\d+)/(\d+)', text))
 
     print("============find match String and replace ============")
-    text = 'Today is 11/27/2012. PyCon starts 3/13/2013.取联系人电话mobilephone'
+    text = 'Today is 11/27/2012. PyCon starts 3/13/2013.取联系人电话mobilephone,还钱20'
     repStr = re.sub(r'(\d+)/(\d+)/(\d+)', r'\3-\1-\2', text)
-    print("repStr is ", repStr)
+    print("repStr.format is ", repStr)
     datep = re.compile(r'(\d+)/(\d+)/(\d+)')
     res = datep.sub(r'\3-\1-\2',text)
     print("res is ", res)
@@ -85,7 +105,7 @@ if __name__ == "__main__":
     cmp = re.compile(r'^.*(还钱|欠钱).*$')
     matchObj = cmp.search(text)
     if matchObj:
-        print("repStr is ", matchObj.group())
+        print("repStr.1 is ", matchObj.group())
     else:
         print("Do not find match string")
 
@@ -132,9 +152,10 @@ if __name__ == "__main__":
     print('add blanks on the left:', t.ljust(20))
     # print('add blanks on the left:', s.rjust(20, '=='))
 
-    print("============判断输入字符串为字母、数字、长度大于8 ============")
+    print("============check input string, only contains alphabets、numbers and length>8 ============")
     line = "a123044%"
     res = re.search('^(?![A-Z]+$)(?![a-z]+$)(?!\d+$)(?![\W_]+$)\S{8,}$', line)
+    print(res.group())
     if res:
         print('YES')
     else:
@@ -149,8 +170,5 @@ if __name__ == "__main__":
     else:
         print("NO")
 
-
-    # phone()
-
-
-
+    print("============check phone number is available ============")
+    phone("13888888829")

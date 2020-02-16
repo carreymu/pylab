@@ -1,3 +1,4 @@
+import json
 import math
 import numpy as np
 from datetime import datetime, timedelta
@@ -5,15 +6,35 @@ from itertools import compress
 from itertools import groupby
 from operator import itemgetter
 if __name__ == "__main__":
-    print("============group by *** ============")
+    # print(json.loads({"instidlist":"\['123','567'\]"}))
+    str_lst = list("0101003")
+    print(str_lst)
+    print("============list operations ============")
+    print('法大' in '陈环（旅发委执法大队副队长）|陈雪')
+    l1 = ['法大','电大']
+    l2 = ['陈环（旅发委执法大队副队长）', '陈雪']
+    print('法大' in '.'.join(l2))
+    print(set(l2).issubset(set(l1)))
+
     #自定义分组
     a = 2
-    lstt=[2, 8, 11, 25, 43, 6, 9, -1, 29, 51, 66, 62, -2, -10]
+    lstt = [2, 8, 11, 25, 43, 6, 9, -1, 29, 51, 66, 62, -2, -10]
+    dmp = json.dumps(lstt)
+    print(type(dmp))
+    print(dmp)
+    lds = json.loads(dmp)
+    print(type(lds))
+    print(lds)
 
+    print(lstt[:10])
+    print(max(lstt))
+    del lstt[0]
+    lstt.remove(-10)
     first, *mid, last = lstt
     print('first is {}, middle is {},last is {}'.format(first, mid, last))
     _, *lasts = lstt
     print('lasts is {}'.format(lasts))
+    print("============group by *** ============")
     var_unionpay = ['mon_12_var1',
                     'tfr_in_accts_cnt_is180d',
                     'trans_at_ttl_suc_out_6monmax',
@@ -37,7 +58,6 @@ if __name__ == "__main__":
     for i in var_unionpay:
         i_bins = var_unionpay_bins.get(i)
         print(i_bins)
-
 
     aa = [x for x in lstt if a == x]
     print(aa)
@@ -70,7 +90,6 @@ if __name__ == "__main__":
               "callphonenumber": "95533", "duration": 397, "maxcalltime": "2017-01-21T14:15:42",
               "mincalltime": "2017-01-11T11:31:28", "phonenumber": "11715158282"}
              ]
-
     *_, ljson = jsons
     print('last duration is :{}'.format(ljson['duration']))
     jsons.sort(key=itemgetter('callphonenumber'))
@@ -163,12 +182,14 @@ if __name__ == "__main__":
     a.pop(a.index(2))  # remove 3
     print(a)
     print(list(filter(lambda x: x % 2, a)))
+    print('*' * 10)
+    a.remove(9)
+    print(a)
 
-    jArr = [
-            {
-                "final_score": 1047,
+    jArr = [{
+                "final_score": 1041,
                 "inserttime": 1515666222778,
-                "final_decision": "Reject",
+                "final_decision": "Reject1",
                 "updatetime": "2018-06-06 20:23:48",
                 "upserttime": "2018-06-06T20:23:48",
                 "maxcalltime": "2015-11-15T14:01:00",
@@ -176,10 +197,10 @@ if __name__ == "__main__":
                 "userid": 50188157
             },
             {
-                "final_score": 1047,
-                "inserttime": 1513082115530,
-                "final_decision": "Review",
-                "updatetime": "2018-06-01 20:23:48",
+                "final_score": 1042,
+                "inserttime": 1515666222779,
+                "final_decision": "Reject：",
+                "updatetime": "2018-06-06 20:23:48",
                 "upserttime": "2018-06-01T20:23:48",
                 "maxcalltime": "2015-11-15T14:01:00",
                 "mincalltime": "2015-11-15T10:28:00",
@@ -188,14 +209,17 @@ if __name__ == "__main__":
             {
                 "final_score": 1047,
                 "inserttime": 1513082115530,
-                "final_decision": "Review",
+                "final_decision": "Review：",
                 "updatetime": "2018-06-02 20:23:48",
                 "upserttime": "2018-06-02T20:23:48",
                 "maxcalltime": "2015-11-15T14:01:00",
                 "mincalltime": "2015-11-15T10:28:00",
                 "userid": 50188157
-            }
-        ]
+            }]
+    for it in jArr:
+        it['final_decision'] = it['final_decision'].replace("：","")
+    print(f'jArr is {jArr}')
+    print(f'max list:{max(jArr, key=lambda x: x.get("inserttime") or "")}')
     a = jArr[0]['final_decision'] if 'final_decision' in jArr[0].keys() else -1
     print(f'a is {a}')
     fa1 = [x for x in jArr if x['final_decision'] == 'Reject']
@@ -210,10 +234,16 @@ if __name__ == "__main__":
     print('------')
     print(fa1[0]['final_score'])
 
-    # fa4 = jArr.sort(key=lambda x:x['updatetime'])
-    fa4 = sorted(jArr, key=lambda x: x['updatetime'], reverse=True)
+    # fa4_item = jArr.sort(key=lambda x: x['updatetime'])
+    # print(fa4_item[0])
+    print("============sort by key(s) ============")
+    fa4 = sorted(jArr, key=lambda x: x['updatetime'], reverse=True)[0]
     print(fa4)
-    print([x.pop('seqid',None) for x in jArr])
+    fa5 = sorted(jArr, key=lambda x: str(x['updatetime'])+str(x['final_score']), reverse=True)
+    print('fa5:--')
+    print(fa5)
+    print('fa5:--')
+    print([x.pop('seqid', None) for x in jArr])
     print(jArr)
     fa3 = filter(lambda x: x['final_decision'] == 'Reject', jArr)
     print('fa3:--')
@@ -224,4 +254,7 @@ if __name__ == "__main__":
     strs = '他是你的小宝贝，你是他的小红帽'
     print(not any(x for x in keywords if x in strs))
 
-    print( 5 in [4,15,6])
+    print(5 in [4,15,6])
+
+    lst = [['账单提醒', '中国联通'], ['邮储银行'],['邮储银行'],['留言提醒', '中国移动\u3000和留言']]
+    print(f"fst is {[x[0] for x in lst]}")
