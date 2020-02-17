@@ -1,7 +1,9 @@
-# intruction
-python laboratory.Record the code used in daily work.
+## intruction
+python laboratory.Document the code used in daily work.
 
-make sure you have installed Python 3.6.*
+## Installation
+
+make sure you have installed Python 3.7.*
 
 pip install numpy
 
