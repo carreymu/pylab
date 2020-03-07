@@ -1,5 +1,6 @@
 ## Introduction
-python laboratory.Document the code used in daily work.
+Python laboratory.Document.
+code used in daily work.
 
 ## Installation
 

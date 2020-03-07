@@ -1,12 +1,26 @@
 from sanic import Sanic
-from sanic.response import json, text
+from sanic.response import json, text, html
+# from sanic_cors import CORS
+import os
 
-app = Sanic()
+app = Sanic('mySanic')
+# CORS(app) #跨域
+
+#Serves files from the static folder to the url /static
+# app.static('/static','./static')
 
 @app.route('/')
 async def test(request):
     return json({'hello': 'world'})
 
+@app.route('/html')
+async def load_html(request):
+    template = open(os.getcwd()+"/templates/index.html").read()
+    return html(template)
+
+@app.get('/ping')
+async def hs(request):
+    return text('resposne - pong')
 
 @app.route('/tag/<tag>')
 async def tag_handler(request, tag):
@@ -29,7 +43,29 @@ async def folder_handler(request, folder_id):
     return text('Folder-{}'.format(folder_id))
 
 
-if __name__ == '__main__':
-    # open brower and input http://0.0.0.0:8001 in url address
-    app.run(host="0.0.0.0", port=8001)
+@app.route('/json', methods=['POST'])
+async def post_json(request):
+    print(request.json)
+    return text("it is ok!")
+    # return json({"received": request.json})
 
+@app.route('/post1', methods=['POST'])
+async def get_handler(request):
+    return json('POST request - {}'.format(request.body))
+
+@app.route('/args')
+async def test(request):
+    return json({
+        "parsed": True,
+        "url": request.url,
+        "query_string": request.query_string,
+        "args": request.args,
+        "raw_args": request.raw_args,
+        # "query_args": request.query_args,
+    })
+
+if __name__ == '__main__':
+    # open brower and input http://127.0.0.1:8001 in url address
+    app.run(host="127.0.0.1", port=8001)
+
+# 
