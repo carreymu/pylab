@@ -2,19 +2,36 @@ from sanic import Sanic
 from sanic.response import json, text, html, stream
 from sanic import response
 # from sanic_cors import CORS
+from sanic.blueprints import Blueprint
+from sanic.exceptions import ServerError
+from sanic.views import HTTPMethodView
 import asyncio
 import time
 import os
 
-app = Sanic('mySanic')
-# CORS(app) #跨域
+
+app = Sanic(__name__)
+# app = Sanic('mySanic', strict_slashes=True)
+# CORS(app) #Cross-domain
 
 #Serves files from the static folder to the url /static
 # app.static('/static','./static')
+# app.static('/uploads', './uploads', name='uploads')
+# app.static('/the_best.png', '/home/ubuntu/test.png', name='best_png')
+
 
 @app.route('/')
 async def test(request):
-    return json({'hello': 'world'})
+    # print( response.text(request['foo']))
+    return json({'hello': 'world','foo':request['foo']}) #curl 127.0.0.1:8001
+
+@app.route('/', version=1)
+async def test(request):
+    return json({'hello': 'world','version':'v1'}) #curl 127.0.0.1:8001/v1
+
+@app.route('/', version=2)
+async def test(request):
+    return json({'hello': 'world','version':'v2'}) #curl 127.0.0.1:8001/v1
 
 @app.route('/html')
 async def load_html(request):
@@ -52,9 +69,24 @@ async def post_json(request):
     return text("it is ok!")
     # return json({"received": request.json})
 
-@app.route('/post1', methods=['POST'])
+@app.get('/shortget', name='gets_handler')
 async def get_handler(request):
-    return json('POST request - {}'.format(request.body))
+    return text('GET request - {}'.format(request.args))
+# 当为上面的路由使用`url_for`时，
+# 应该使用 `app.url_for('gets_handler')`
+# 而不是`app.url_for('get_handler')`
+
+@app.route('/post', methods=['POST'], host='www.baidu.com')
+async def post_handler(request):
+    return response.text('POST request: {}'.format(request.json))
+
+@app.post('/shortpost')
+async def post_handler(request):
+    return text('POST request - {}'.format(request.json))
+
+@app.route('/many', methods=['GET', 'POST', 'DELETE'])
+async def many_handler(request):
+    return response.text('many request: {}'.format(request.json))
 
 @app.route('/args')
 async def test(request):
@@ -93,7 +125,59 @@ async def streaming(request):
         headers={'X-Serverd-By': 'Hello Python'}
     )
 
+#####################listener#########################
+@app.listener('before_server_start')
+async def setup_db(app, loop):
+    print('Server successfully before_server_start!')
+
+@app.listener('after_server_start')
+async def notify_server_started(app, loop):
+    print('Server successfully started!')
+
+@app.listener('before_server_stop')
+async def notify_server_stopping(app, loop):
+    print('Server shutting down!')
+
+@app.listener('after_server_stop')
+async def close_db(app, loop):
+    print('Server successfully after_server_stop!')
+
+async def notify_server_started_after_five_seconds():
+    await asyncio.sleep(5)
+    print('Server successfully sleeps 5s!')
+#####################middleware#########################
+@app.middleware('request')
+async def add_key(request):
+    request['foo'] = 'bar'
+
+@app.middleware('response')
+async def custom_banner(request, response):
+    response.headers["Server"] = "Fake-Serverss"
+
+#####################Blueprint,Global version controller#########################
+# bp = Blueprint('my_blueprint')
+# @bp.route('/')
+# async def bp_root(request):
+#     return json({'my': 'blueprint'})
+
+#####################Error#########################
+@app.route('/killme')
+async def i_am_ready_to_die(request):
+    raise ServerError("Something bad happened", status_code=500)
+
+
+class SimpleAsyncView(HTTPMethodView):
+#   @staticmethod
+  async def get(self, request, name):
+        return text('I am async get method, hello {}'.format(name))
+  async def post(self, request, name):
+        return text('I am async post method, hello {}'.format(name))
+  def put(self, request):
+        return text('I am put method')
 if __name__ == '__main__':
+    app.add_route(SimpleAsyncView.as_view(), '/view/<name>')
+    app.add_task(notify_server_started_after_five_seconds())
     # open brower and input http://127.0.0.1:8001 in url address
-    app.run(host="127.0.0.1", port=8001)
+    app.run(host="127.0.0.1", port=8001) #, debug=True
+    
 # 

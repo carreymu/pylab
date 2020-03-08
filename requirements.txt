@@ -7,3 +7,5 @@ scipy==1.4.1
 numpy==1.18.1
 flask==1.1.1
 setuptools==41.2.0
+gunicorn==19.9.0
+sanic-cors==0.10.0
