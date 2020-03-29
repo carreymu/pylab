@@ -1,4 +1,4 @@
-python==3.7.6
+python==3.7.4
 pip==20.0.2
 aiofiles==0.4.0
 sanic==19.12.2
@@ -8,4 +8,4 @@ numpy==1.18.1
 flask==1.1.1
 setuptools==41.2.0
 gunicorn==19.9.0
-sanic-cors==0.10.0
+# sanic-cors==0.10.0

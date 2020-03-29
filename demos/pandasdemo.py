@@ -1039,6 +1039,10 @@ if __name__ == '__main__':
 
     a = [['中国地质大学（北京）', '116.35', '39.99'], ['北京经济技术职业学院', '116.47', '39.98'], ['北京经济管理职业学院', '116.47', '39.98']]
     #data = pd.DataFrame(a, columns=['one', 'two', 'three'])
-    data = pd.DataFrame(a, columns=['school_name', 'longitude', 'latitude'])
+    df_data = pd.DataFrame(a, columns=['school_name', 'longitude', 'latitude'])
+    print(df_data)
+    print("============ df to Json============")
+    to_jsons = df_data.to_json(orient="table")
+    print(to_jsons)
+    print(json.loads(to_jsons)['data'])
 
-    print(data)
