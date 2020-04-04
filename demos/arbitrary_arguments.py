@@ -17,8 +17,15 @@ def fc(a2='dd', dc: dict={}, *args, **kwargs):
     for arg in args:
         print(arg)
 
+    fcc(**kwargs)
+    # for key, value in kwargs.items():
+    #     print("%s == %s" % (key, value))
+
+def fcc(**kwargs):
+    print("fcc ==" * 10)
     for key, value in kwargs.items():
         print("%s == %s" % (key, value))
+    print("fcc ==" * 10)
 
 def ff(sql_info: dict, fmt: str = "json", **sql_params):
     print(f"sql_info=={sql_info}")
@@ -43,7 +50,7 @@ if __name__ == "__main__":
     myf(*args)
 
     fargs={'arg1': 'golang'}
-    ff(fargs, 'df', ms="C++")
+    ff(fargs,  ms="C++")
 
     kwargs = {'arg1': 'golang', 'arg2': 'c#', 'arg3': 'scala'}
     myf(**kwargs)
