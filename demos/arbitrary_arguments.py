@@ -20,7 +20,7 @@ def fc(a2='dd', dc: dict={}, *args, **kwargs):
     fcc(**kwargs)
     # for key, value in kwargs.items():
     #     print("%s == %s" % (key, value))
-
+# func(**{'type'='event'})
 def fcc(**kwargs):
     print("fcc ==" * 10)
     for key, value in kwargs.items():
@@ -33,6 +33,7 @@ def ff(sql_info: dict, fmt: str = "json", **sql_params):
     print(f"fmt=={fmt}")
     print('==' * 10)
     print(sql_params)
+    fcc(**{'fmt': fmt})
     print('=='*10)
 
 def myf(arg1, arg2, arg3):
