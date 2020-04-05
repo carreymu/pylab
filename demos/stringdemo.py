@@ -7,6 +7,12 @@ class Info:
         self.n = n
 
 if __name__ == "__main__":
+    sql = "select top 100 , nc_id , category_name  a_b,none, FROM  From news_category where status={status}".lower()
+    sql_trim = sql[7: sql.find(' from ')].strip()
+    li = sql_trim.split(',')
+    print(sql_trim)
+    print([x.strip().split(' ')[-1] for x in li if len(x) > 0 and 'top ' not in x])
+
     print("============String compare============")
     print('201808'.isdigit())
     print('201808' > '201807')
