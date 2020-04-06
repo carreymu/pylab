@@ -1042,7 +1042,7 @@ if __name__ == '__main__':
     df_data = pd.DataFrame(a, columns=['school_name', 'longitude', 'latitude'])
     print(df_data)
     print("============ df to Json============")
-    to_jsons = df_data.to_json(orient="table")
+    to_jsons = df_data.to_json(force_ascii=False, orient="records")  #  (orient='records')
     print(to_jsons)
-    print(json.loads(to_jsons)['data'])
+    print(json.loads(to_jsons))
 
