@@ -62,6 +62,11 @@ if __name__ == "__main__":
     dellimiters = flds1[1::2]
     print('dellimiters string ', dellimiters)
 
+    delimiters = "a", "...", "(C)"
+    regexPattern = '|'.join(map(re.escape, delimiters))  # 'a|\\.\\.\\.|\\(C\\)'
+    line = "stackoverflow (C) is awesome... isn't it?"
+    print(re.split(regexPattern, line))
+
     print('.' in '3.')
     head, tail = '3.'.split(".")
     res = float('3'+'.'+'445')

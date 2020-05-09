@@ -81,10 +81,10 @@ if __name__ == "__main__":
               "callphonenumber": "95533", "duration": 40, "maxcalltime": "2015-12-14T10:02:00",
               "mincalltime": "2015-12-14T10:02:00", "phonenumber": "11715158282"},
              {"callintimes": 0, "callmonth": "2016-11", "callouttimes": 1,
-              "callphonenumber": "95533", "duration": 101, "maxcalltime": "2016-11-16T11:37:14",
+              "callphonenumber": "95532", "duration": 101, "maxcalltime": "2016-11-16T11:37:14",
               "mincalltime": "2016-11-16T11:37:14", "phonenumber": "11715158282"},
              {"callintimes": 1, "callmonth": "2016-12", "callouttimes": 0,
-              "callphonenumber": "95533", "duration": 81, "maxcalltime": "2016-12-13T10:59:35",
+              "callphonenumber": "95532", "duration": 81, "maxcalltime": "2016-12-13T10:59:35",
               "mincalltime": "2016-12-13T10:59:35", "phonenumber": "11715158282"},
              {"callintimes": 2, "callmonth": "2017-01-02", "callouttimes": 1,
               "callphonenumber": "95533", "duration": 397, "maxcalltime": "2017-01-21T14:15:42",
@@ -94,7 +94,10 @@ if __name__ == "__main__":
     print('last duration is :{}'.format(ljson['duration']))
     jsons.sort(key=itemgetter('callphonenumber'))
     lstg = groupby(jsons, itemgetter('callphonenumber'))
-
+    jg_1 = [{key: list(group)} for key, group in lstg]
+    print('----jg1 start')
+    print(jg_1)
+    print('----jg1 end')
     # (fres1,fres2) = [(x['callintimes'],x['callouttime0_6']) for x in lstg]
     # print(fres1,fres2)
     ss = [x['callintimes'] for x in jsons]
@@ -121,10 +124,7 @@ if __name__ == "__main__":
     # sss = [{key: len(list(group))} for key, group in call2]
     # print(sss)
 
-    jg_1 = [{key: list(group)} for key, group in lstg]
-    print('----jg1')
-    print(jg_1)
-    print('----')
+
 
     lstg2 = groupby(jsons, itemgetter('callmonth'))
     jg_2 = dict([(key, len(list(group))) for key, group in lstg2])

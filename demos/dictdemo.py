@@ -1,3 +1,4 @@
+import re
 import heapq
 from itertools import groupby
 from functools import reduce 
@@ -138,6 +139,11 @@ if __name__ == "__main__":
         {'address': '4801 N BROADWAY', 'date': '07/01/2012'},
         {'address': '1039 W GRANVILLE', 'date': '07/04/2012'},
     ]
+    dtd = "[", "]", ","
+    depence_key = 'key1[add as address,dt as date]key2[c1 as cc,c2 as cd,c3]key3'
+    keys = re.split('|'.join(map(re.escape, dtd)), depence_key)
+    print(keys)
+    # print(k1, c1,  k2)
     sortedrows1 = sorted(rowgs, key=itemgetter('date'))
     print("sortedrows is ", sortedrows1)
 
