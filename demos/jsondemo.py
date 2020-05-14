@@ -91,12 +91,16 @@ if __name__ == '__main__':
 
     print('============distinct name============')
     t1 = [{"username": "测试", "age": 16, "isslut":False,"ismerry":None}, {"username": "测试122", "age": 12,"isslut":True,"ismerry":"yes"},
-    {"username": "测试1", "age": 16,"isslut":False,"ismerry":None},{"username": "测试", "age": 17,"isslut":False,"ismerry":None}]
+    {"username": "测试1", "age": 16, "isslut":False,"ismerry":None},{"username": "测试", "age": 17,"isslut":False,"ismerry":None}]
     t2 = [x['username'] for x in t1 if x['age']>12]
     print(set(t2))
 
     print('============list to tuple for sql.in============')
     in_params = {"req": {"fids": [1, 2, 3], "tids": ['4', '5', '6'], "fid": "m"}}
-    print({k: tuple(v) for k, v in in_params["req"].items() if isinstance(v, list)})
+    # for k, v in in_params["req"].items():
+    #     if isinstance(v, list):
+    #         in_params["req"][k] = tuple(v)
+    # print(in_params)
+    print({k: (tuple(v) if isinstance(v, list) else v) for k, v in in_params["req"].items()})
 
 
