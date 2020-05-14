@@ -76,7 +76,7 @@ if __name__ == '__main__':
     print(json_to_python[1]['username'])
 
     print("============load json from file============")
-    with open(os.path.abspath('demos/file/jsonfile.json'), 'r') as f:
+    with open(os.path.abspath('file/jsonfile.json'), 'r') as f:
         # print(f.read())
         print(json.load(f))
 
@@ -90,9 +90,13 @@ if __name__ == '__main__':
     print("a.x:{},a.y:{}".format(a.x, a.y))
 
     print('============distinct name============')
-    t1 = [{"username": "测试", "age": 16,"isslut":False,"ismerry":None}, {"username": "测试122", "age": 12,"isslut":True,"ismerry":"yes"},
+    t1 = [{"username": "测试", "age": 16, "isslut":False,"ismerry":None}, {"username": "测试122", "age": 12,"isslut":True,"ismerry":"yes"},
     {"username": "测试1", "age": 16,"isslut":False,"ismerry":None},{"username": "测试", "age": 17,"isslut":False,"ismerry":None}]
     t2 = [x['username'] for x in t1 if x['age']>12]
     print(set(t2))
+
+    print('============list to tuple for sql.in============')
+    in_params = {"req": {"fids": [1, 2, 3], "tids": ['4', '5', '6'], "fid": "m"}}
+    print({k: tuple(v) for k, v in in_params["req"].items() if isinstance(v, list)})
 
 
