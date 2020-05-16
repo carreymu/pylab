@@ -97,10 +97,13 @@ if __name__ == '__main__':
 
     print('============list to tuple for sql.in============')
     in_params = {"req": {"fids": [1, 2, 3], "tids": ['4', '5', '6'], "fid": "m"}}
-    # for k, v in in_params["req"].items():
-    #     if isinstance(v, list):
-    #         in_params["req"][k] = tuple(v)
-    # print(in_params)
-    print({k: (tuple(v) if isinstance(v, list) else v) for k, v in in_params["req"].items()})
+    for k, v in in_params["req"].items():
+        if isinstance(v, list):
+            fmt = "%s" if isinstance(v[0], int) else "'%s'"
+            in_params["req"][k] = ",".join(fmt % str(x) for x in v)
+    print(in_params)
+    # print(','.join(["'%s'" % item for item in ['4', '5', '6']]))
+    # print({k: (",".join("%s" % str(x) for x in v) if isinstance(v, list) else v) for k, v in in_params["req"].items()})
+    print("select * from XX where id in ({})".format('1,2,3'))
 
 
