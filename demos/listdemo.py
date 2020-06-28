@@ -1,9 +1,9 @@
 import json
 import math
 import numpy as np
+import copy
 from datetime import datetime, timedelta
-from itertools import compress
-from itertools import groupby
+from itertools import compress, groupby
 from operator import itemgetter
 if __name__ == "__main__":
     # print(json.loads({"instidlist":"\['123','567'\]"}))
@@ -94,9 +94,12 @@ if __name__ == "__main__":
     print('last duration is :{}'.format(ljson['duration']))
     jsons.sort(key=itemgetter('callphonenumber'))
     lstg = groupby(jsons, itemgetter('callphonenumber'))
+    lstg2 = copy.deepcopy(lstg)
     jg_1 = [{key: list(group)} for key, group in lstg]
+    jg_2 = [{key: sum([x['duration'] for x in group]) for key, group in lstg2}]
     print('----jg1 start')
     print(jg_1)
+    print(jg_2)
     print('----jg1 end')
     # (fres1,fres2) = [(x['callintimes'],x['callouttime0_6']) for x in lstg]
     # print(fres1,fres2)

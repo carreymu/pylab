@@ -7,6 +7,7 @@ class Info:
         self.n = n
 
 if __name__ == "__main__":
+    print("510145687956236"[-4:])
     sql = "select top 100 , nc_id , category_name  a_b,none, FROM  From news_category where status={status}".lower()
     sql_trim = sql[7: sql.find(' from ')].strip()
     li = sql_trim.split(',')

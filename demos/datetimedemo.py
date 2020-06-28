@@ -35,6 +35,7 @@ def datetime_timestamp(dt):
     s = time.mktime(time.strptime(dt, '%Y-%m-%d %H:%M:%S'))
     return int(s)
 
+
 def datediff_timestamp(starttime, endtime=None, rnd=True):
     """
     SQL的datediff函数是四舍五入的
@@ -159,9 +160,9 @@ if __name__ == "__main__":
     print(datetime.strptime("2019-06-16 06:15:47", "%Y-%m-%d %H:%M:%S").strftime("%Y-%m-%dT%H:%M:%S.000 +0800"))
 
     print("============ format date ============")
-    d = Date(2013, 12, 22)
-    print(format(d))
-    print(format(d, 'mdy'))
-    print('The date is {:ymd}'.format(d))
-    print('The date is {:mdy}'.format(d))
-    print('The date is {:dmy}'.format(d))
+    # d = date(2013, 12, 22)
+    # print(format(d))
+    # print(format(d, 'mdy'))
+    # print('The date is {:ymd}'.format(d))
+    # print('The date is {:mdy}'.format(d))
+    # print('The date is {:dmy}'.format(d))
