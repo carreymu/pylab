@@ -2,6 +2,8 @@ import time
 import os
 from multiprocessing import Process, Semaphore
 
+# Create 10 processes, only 4 of them do something.
+
 # Maxmum 4 processes for semaphore
 semaphore = Semaphore(4)
 
