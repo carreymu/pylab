@@ -1,7 +1,7 @@
 python==3.7.4
 pip==20.0.2
 aiofiles==0.4.0
-sanic==19.12.2
+sanic==20.12.6
 pandas==1.0.1
 scipy==1.4.1
 numpy==1.18.1
